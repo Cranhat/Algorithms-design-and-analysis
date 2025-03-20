@@ -1,8 +1,4 @@
-#include <iostream>
-
 #include "Bubble sort.hpp"
-
-using namespace std;
 
 void bubble_sort(int* list, int size){
     for(int i = 0; i < size - 1; i ++){
@@ -14,23 +10,4 @@ void bubble_sort(int* list, int size){
             }
         }
     }
-}
-
-int main(){
-    int size = 8;
-    int* lista = (int *) malloc(sizeof(int) * size);
-    int randomNum;
-
-    for (int i = 0; i < size; i++){
-        randomNum = rand() % 101;
-        lista[i] = randomNum;
-    }
-
-
-    bubble_sort(lista, size);
-
-    for (int i = 0; i < 8; i++){
-        printf("%dth element = %d\n", i, lista[i]);
-    }
-    return 0;
 }
