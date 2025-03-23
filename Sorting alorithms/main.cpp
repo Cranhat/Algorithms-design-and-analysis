@@ -17,11 +17,6 @@
 using namespace std::literals;
 
 int main(){
-    // 2147483647
-    // int size = 21474836;
-    int size = 8147483;
-    int* lista = create_randomized_list(size, size);
-
 
     // int** pointers_to_datasets = (int**) malloc(sizeof(int*) * 2);
     // pointers_to_datasets[0] = create_randomized_list(size, size);
@@ -39,9 +34,17 @@ int main(){
     // double time_elapsed_2 = testingArrays.test_time(1, 0);
     // printf("%f\n", time_elapsed_2);
 
+
+    // // 2147483647
+    // // int size = 21474836;
+    int size = 21442;
+    int* lista = create_randomized_list(size, size * 2);
+
+    // heapsort(lista, size);
+
     auto start = std::chrono::high_resolution_clock::now();
 
-    quicksort_v2(lista, 0, size - 1);
+    quicksort(lista, 0, size - 1);
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -53,7 +56,7 @@ int main(){
 
     auto start_v2 = std::chrono::high_resolution_clock::now();
 
-    mergesort(lista, size - 1, 0);
+    heapsort(lista, size - 1);
 
     auto end_v2 = std::chrono::high_resolution_clock::now();
 
