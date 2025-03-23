@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Merge sort.hpp"
 
-void mergesort(int* list, int size){
+void mergesort(int* list, int size, int nic){
 
     if (size <= 1) return;
 
@@ -17,8 +17,8 @@ void mergesort(int* list, int size){
         arrayRight[i] = list[i + mid];
     }
 
-    mergesort(arrayLeft, mid);
-    mergesort(arrayRight, size - mid);
+    mergesort(arrayLeft, mid, 0);
+    mergesort(arrayRight, size - mid, 0);
 
     merge(list, arrayLeft, arrayRight, mid, size - mid);
 
