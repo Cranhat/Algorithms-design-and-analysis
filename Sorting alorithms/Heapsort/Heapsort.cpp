@@ -1,10 +1,10 @@
 #include "Heapsort.hpp"
 
-void heapsort(int* list, int size){
-    for(int i = size/ 2 - 1; i >= 0; i--){
-        heapify(list, size, i);
+void heapsort(int* list, int start_index, int end_index){
+    for(int i = end_index/ 2 - 1; i >= 0; i--){
+        heapify(list, end_index, i);
     }
-    for (int i = size - 1; i >= 0; i--){
+    for (int i = end_index - 1; i >= 0; i--){
         swapItems_heapsort(list, i, 0);
         heapify(list, i, 0);
     }

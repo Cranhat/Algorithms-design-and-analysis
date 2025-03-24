@@ -1,6 +1,6 @@
 #pragma once
 
-void heapsort(int* list, int size);
+void heapsort(int* list, int start_index, int end_index);
 
 void heapify(int* list, int size, int root);
 

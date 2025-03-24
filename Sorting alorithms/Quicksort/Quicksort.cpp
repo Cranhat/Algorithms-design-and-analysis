@@ -32,6 +32,7 @@ void quicksort(int* list, int index_start, int index_end){
         quicksort(list, i, index_end);
     }
 }
+
 int find_pivot(int* list, int start, int end){
     int size = end - start;
     int pivot_index;

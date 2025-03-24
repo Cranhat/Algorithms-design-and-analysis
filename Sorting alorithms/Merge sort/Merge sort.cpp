@@ -2,25 +2,25 @@
 #include <stdlib.h>
 #include "Merge sort.hpp"
 
-void mergesort(int* list, int size, int nic){
+void mergesort(int* list, int start_index, int end_index){
 
-    if (size <= 1) return;
+    if (end_index <= 1) return;
 
-    int mid = (int) size/2;
+    int mid = (int) end_index/2;
     int* arrayLeft = (int *) malloc(sizeof(int) * mid);
-    int* arrayRight = (int *) malloc(sizeof(int) * (size - mid));
+    int* arrayRight = (int *) malloc(sizeof(int) * (end_index - mid));
     
     for(int i = 0; i < mid; i++){
         arrayLeft[i] = list[i];
     }
-    for(int i = 0; i < (size - mid); i++){
+    for(int i = 0; i < (end_index - mid); i++){
         arrayRight[i] = list[i + mid];
     }
 
-    mergesort(arrayLeft, mid, 0);
-    mergesort(arrayRight, size - mid, 0);
+    mergesort(arrayLeft, 0, mid);
+    mergesort(arrayRight, 0, end_index - mid);
 
-    merge(list, arrayLeft, arrayRight, mid, size - mid);
+    merge(list, arrayLeft, arrayRight, mid, end_index - mid);
 
     free(arrayLeft); free(arrayRight);
 }
