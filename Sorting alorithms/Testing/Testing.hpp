@@ -18,11 +18,15 @@ class Testing{
         this -> datasets_count = datasets_count;
     }
 
-    void test_everything();
+    void save_to_csv(string saveFilePath, int keys[], float values[]);
 
     double test_time(int pointer_to_algorithm, int* pointer_to_dataset, int* pointer_to_dataset_size);
 
     void test_times(string saveFilePath);
 
-    void save_to_csv(string saveFilePath, int keys[], float values[]);
+    void test_times_dynamically_allocated();
+
+    void test_times_dynamically_allocated_partially_sorted();
+
+    void test_times_dynamically_allocated_sorted_reversed();    
 };

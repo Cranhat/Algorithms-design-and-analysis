@@ -12,14 +12,11 @@ typedef void (*FuncPtr)(int*, int, int);
 using namespace std::literals;
 
 void Testing::save_to_csv(string saveFilePath, int keys[], float values[]){
-    ofstream myFile(saveFilePath);
+    ofstream myFile;
+    myFile.open(saveFilePath.c_str(), std::ios::out | std::ios::trunc);
+    myFile << saveFilePath << "\n";
     for(int i = 0; i < this -> datasets_count; i++){
-        myFile << saveFilePath;
-        myFile << "\n";
-        myFile << keys[i];
-        myFile << ";";
-        myFile << values[i];
-        myFile << "\n";
+        myFile << keys[i]<< ";"<< values[i]<< "\n";
     }
     myFile.close();
 }
@@ -39,7 +36,8 @@ double Testing::test_time(int pointer_to_algorithm_index, int* pointer_to_datase
     return fp_seconds;
 }
 void Testing::test_times(string saveFilePath){
-    char fileSavedAs[50];
+    string fileSavedAs;
+    char cwd[1024];
     float** time_elapsed = new float*[algorithm_count];
     for(int i = 0; i < algorithm_count; i++){
         time_elapsed[i] = new float[datasets_count]; 
@@ -48,8 +46,12 @@ void Testing::test_times(string saveFilePath){
         for(int j = 0; j < datasets_count; j++){
         time_elapsed[i][j] = test_time(i, pointers_to_datasets[j], &pointers_to_dataset_sizes[j]);
         printf("time elapsed: %f\n", time_elapsed[i][j]);
+        fileSavedAs = getcwd(cwd, sizeof(cwd)) + saveFilePath + "/algorithm" + std::to_string(i) + ".csv";
         }
-        // sprintf(fileSavedAs, "%s/algorithm%d.csv", saveFilePath, i);
-        // save_to_csv(fileSavedAs, pointers_to_dataset_sizes, time_elapsed);
+        save_to_csv(fileSavedAs, pointers_to_dataset_sizes, time_elapsed[i]);
     }
+    for(int i = 0; i < algorithm_count; i++) {
+        delete[] time_elapsed[i];
+    }
+    delete[] time_elapsed;
 }   
