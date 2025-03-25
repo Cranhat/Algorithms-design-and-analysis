@@ -5,25 +5,24 @@ using namespace std;
 class Testing{
     public:
     void (** pointers_to_algorithms)(int*, int, int); 
-    int** pointers_to_datasets; // tested sizes must be equal
-    int start_index, end_index;
+    int algorithm_count;
+    int** pointers_to_datasets;
+    int* pointers_to_dataset_sizes;
+    int datasets_count;
 
-    Testing(void (**pointers_to_algorithms)(int*, int, int), int** pointers_to_datasets, int start_index, int end_index){
+    Testing(void (**pointers_to_algorithms)(int*, int, int), int algorithm_count, int** pointers_to_dataset_containers, int* pointers_to_dataset_sizes, int datasets_count){
         this -> pointers_to_algorithms = pointers_to_algorithms;
-        this -> pointers_to_datasets = pointers_to_datasets;
-        this -> start_index = start_index;
-        this -> end_index = end_index;
+        this -> algorithm_count = algorithm_count;
+        this -> pointers_to_datasets = pointers_to_dataset_containers;
+        this -> pointers_to_dataset_sizes =  pointers_to_dataset_sizes;
+        this -> datasets_count = datasets_count;
     }
 
-    void test_everyrthing();
+    void test_everything();
 
-    double test_time(int algorithm_index, int dataset_index, int start_index, int end_index);
+    double test_time(int pointer_to_algorithm, int* pointer_to_dataset, int* pointer_to_dataset_size);
 
-    double test_times(int start_index, int end_index, string saveFilePath);
+    void test_times(string saveFilePath);
 
-    double test_memory();
-
-    double calculate_complexity();
-
-    void compare_algorithms();
+    void save_to_csv(string saveFilePath, int keys[], float values[]);
 };

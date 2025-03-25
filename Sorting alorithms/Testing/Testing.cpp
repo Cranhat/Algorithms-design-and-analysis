@@ -2,18 +2,34 @@
 #include <stdlib.h>
 #include <iostream>
 #include <chrono>
+#include <fstream>
+
+#include <cstdio>
+#include <string>
 
 typedef void (*FuncPtr)(int*, int, int);
 
-
 using namespace std::literals;
 
-double Testing::test_time(int algorithm_index, int dataset_index, int start_index, int end_index){
-    FuncPtr algorithm = (FuncPtr) pointers_to_algorithms[algorithm_index];
+void Testing::save_to_csv(string saveFilePath, int keys[], float values[]){
+    ofstream myFile(saveFilePath);
+    for(int i = 0; i < this -> datasets_count; i++){
+        myFile << saveFilePath;
+        myFile << "\n";
+        myFile << keys[i];
+        myFile << ";";
+        myFile << values[i];
+        myFile << "\n";
+    }
+    myFile.close();
+}
+double Testing::test_time(int pointer_to_algorithm_index, int* pointer_to_datasets, int* pointer_to_dataset_size){
+    // FuncPtr algorithm = (FuncPtr) pointer_to_algorithm;
+    FuncPtr algorithm = (FuncPtr) pointers_to_algorithms[pointer_to_algorithm_index];
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    algorithm(pointers_to_datasets[dataset_index], start_index, end_index);
+    algorithm(pointer_to_datasets, 0, *pointer_to_dataset_size);
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -22,24 +38,18 @@ double Testing::test_time(int algorithm_index, int dataset_index, int start_inde
     
     return fp_seconds;
 }
-
-double Testing::test_times(int start_index, int end_index, string saveFilePath){
-    float time;
-    int algorithm_count = sizeof(sizeof(this->pointers_to_algorithms)/sizeof(this->pointers_to_algorithms[0]));
-    for(int i = 0; i <= algorithm_count; i++){
-        time = test_time(i, 0, start_index, end_index);
-        printf("time elapsed: %f\n", time);
+void Testing::test_times(string saveFilePath){
+    char fileSavedAs[50];
+    float** time_elapsed = new float*[algorithm_count];
+    for(int i = 0; i < algorithm_count; i++){
+        time_elapsed[i] = new float[datasets_count]; 
     }
-    return 1.1;
-}
-
-double Testing::test_memory(){
-    return 1.1;
-}
-
-double Testing::calculate_complexity(){
-    return 1.1;
-}
-
-void Testing::compare_algorithms(){
-}
+    for(int i = 0; i < algorithm_count; i++){
+        for(int j = 0; j < datasets_count; j++){
+        time_elapsed[i][j] = test_time(i, pointers_to_datasets[j], &pointers_to_dataset_sizes[j]);
+        printf("time elapsed: %f\n", time_elapsed[i][j]);
+        }
+        // sprintf(fileSavedAs, "%s/algorithm%d.csv", saveFilePath, i);
+        // save_to_csv(fileSavedAs, pointers_to_dataset_sizes, time_elapsed);
+    }
+}   
