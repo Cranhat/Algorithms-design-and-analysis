@@ -1,8 +1,10 @@
 #include "Testing.hpp"
 #include <stdlib.h>
+#include <direct.h>
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include "../Utilities/utilities.cpp"
 
 #include <cstdio>
 #include <string>
@@ -20,8 +22,8 @@ void Testing::save_to_csv(string saveFilePath, int keys[], float values[]){
     }
     myFile.close();
 }
+
 double Testing::test_time(int pointer_to_algorithm_index, int* pointer_to_datasets, int* pointer_to_dataset_size){
-    // FuncPtr algorithm = (FuncPtr) pointer_to_algorithm;
     FuncPtr algorithm = (FuncPtr) pointers_to_algorithms[pointer_to_algorithm_index];
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -31,10 +33,12 @@ double Testing::test_time(int pointer_to_algorithm_index, int* pointer_to_datase
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> duration = end - start;
+    
     double fp_seconds = duration / 1.01s;
     
     return fp_seconds;
 }
+
 void Testing::test_times(string saveFilePath){
     string fileSavedAs;
     char cwd[1024];
@@ -45,9 +49,9 @@ void Testing::test_times(string saveFilePath){
     for(int i = 0; i < algorithm_count; i++){
         for(int j = 0; j < datasets_count; j++){
         time_elapsed[i][j] = test_time(i, pointers_to_datasets[j], &pointers_to_dataset_sizes[j]);
-        printf("time elapsed: %f\n", time_elapsed[i][j]);
-        fileSavedAs = getcwd(cwd, sizeof(cwd)) + saveFilePath + "/algorithm" + std::to_string(i) + ".csv";
+        // printf("time elapsed: %f\n", time_elapsed[i][j]);
         }
+        fileSavedAs = getcwd(cwd, sizeof(cwd)) + saveFilePath + "/algorithm" + std::to_string(i) + ".csv";
         save_to_csv(fileSavedAs, pointers_to_dataset_sizes, time_elapsed[i]);
     }
     for(int i = 0; i < algorithm_count; i++) {
@@ -55,3 +59,50 @@ void Testing::test_times(string saveFilePath){
     }
     delete[] time_elapsed;
 }   
+
+void Testing::test_times_dynamically_allocated(string saveFilePath, int initial_size, int datasets_count){
+    string fileSavedAs;
+    char cwd[1024];
+    float** time_elapsed = new float*[algorithm_count];
+    for(int i = 0; i < algorithm_count; i++){
+        time_elapsed[i] = new float[datasets_count]; 
+    }
+
+    int previous_size;
+    int* pointers_to_dataset_sizes = new int[datasets_count];
+    previous_size = initial_size;
+
+    for(int j = 0; j < datasets_count; j++){
+        for(int i = 0; i < algorithm_count; i++){
+            
+        int* pointer_to_dataset = new int[previous_size];
+        printf("previous size: %d\n", previous_size);
+        pointer_to_dataset = create_randomized_list(previous_size, previous_size);
+
+        time_elapsed[i][j] = test_time(i, pointer_to_dataset, &previous_size);
+
+        printf("time elapsed: %f\n", time_elapsed[i][j]);
+        free(pointer_to_dataset);
+        }
+        pointers_to_dataset_sizes[j] = previous_size;
+        previous_size *=  2;
+    }
+    for(int i = 0; i < algorithm_count; i++){
+        fileSavedAs = getcwd(cwd, sizeof(cwd)) + saveFilePath + "/algorithm" + std::to_string(i) + ".csv";
+        printf("%s", fileSavedAs.c_str());
+        save_to_csv(fileSavedAs, pointers_to_dataset_sizes, time_elapsed[i]);
+    }
+    for(int i = 0; i < algorithm_count; i++) {
+        delete[] time_elapsed[i];
+    }
+    delete[] time_elapsed;
+}
+
+void test_times_dynamically_allocated_partially_sorted(){
+
+}
+
+
+void test_times_dynamically_allocated_sorted_reversed(){
+
+}
