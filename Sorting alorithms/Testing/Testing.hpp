@@ -26,7 +26,7 @@ class Testing{
 
     void test_times_dynamically_allocated(string saveFilePath, int initial_size, int datasets_count);
 
-    void test_times_dynamically_allocated_partially_sorted(string saveFilePath);
+    void test_times_dynamically_allocated_partially_sorted(string saveFilePath, int initial_size, int datasets_count, int percentage_sorted);
 
-    void test_times_dynamically_allocated_sorted_reversed(string saveFilePath);    
+    void test_times_dynamically_allocated_sorted_reversed(string saveFilePath, int initial_size, int datasets_count);    
 };
