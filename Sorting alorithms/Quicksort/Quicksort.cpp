@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "Quicksort.hpp"
+#include "../Utilities/utilities.hpp"
 
 void quicksort(int* list, int index_start, int index_end){
     if (index_start >= index_end) {
@@ -19,7 +20,7 @@ void quicksort(int* list, int index_start, int index_end){
             j--;
         }
         if(i <= j){
-            swapItems(list, i, j);
+            swap_items(list, i, j);
             i++;
             j--;
         }
@@ -50,10 +51,4 @@ int find_pivot(int* list, int start, int end){
         pivot_index = end -  size / 2;
     }
     return pivot_index;
-}
-
-void swapItems(int* list, int first_item_index, int second_item_index){
-    int temp = list[first_item_index];
-    list[first_item_index] = list[second_item_index];
-    list[second_item_index] = temp;
 }

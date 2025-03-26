@@ -11,11 +11,13 @@ class Testing{
     int datasets_count;
 
     Testing(void (**pointers_to_algorithms)(int*, int, int), int algorithm_count, int** pointers_to_dataset_containers, int* pointers_to_dataset_sizes, int datasets_count){
+        
         this -> pointers_to_algorithms = pointers_to_algorithms;
         this -> algorithm_count = algorithm_count;
         this -> pointers_to_datasets = pointers_to_dataset_containers;
         this -> pointers_to_dataset_sizes =  pointers_to_dataset_sizes;
         this -> datasets_count = datasets_count;
+
     }
 
     void save_to_csv(string saveFilePath, int keys[], float values[]);
