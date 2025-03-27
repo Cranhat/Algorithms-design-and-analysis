@@ -12,7 +12,6 @@
 #include "Heapsort/Heapsort.cpp"
 #include "Merge sort/Merge sort.cpp"
 // #include "Quicksort/Quicksort.cpp"
-#include "Quicksort/Quicksort_v2.cpp"
 
 using namespace std;
 using namespace literals;
