@@ -6,8 +6,9 @@
 #include <fstream>
 #include <cstdio>
 #include <string>
-#include "../Utilities/utilities.cpp"
-#include "../Quicksort/Quicksort.cpp"
+
+#include "../Utilities/utilities.hpp"
+#include "../Quicksort/Quicksort.hpp"
 
 
 typedef void (*FuncPtr)(int*, int, int);

@@ -1,5 +1,5 @@
 #include "Insertion sort.hpp"
-#include "../Utilities/utilities.cpp"
+#include "../Utilities/utilities.hpp"
 
 void insertion_sort(int* list, int index_start, int index_end){
     int i = index_start;
