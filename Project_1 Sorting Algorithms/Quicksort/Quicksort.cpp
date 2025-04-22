@@ -5,7 +5,12 @@
 
 #include "../Utilities/utilities.hpp"
 
-void Quicksort::sort(int* list, int index_start, int index_end){
+
+void Quicksort::sort(){
+    quicksort(data, 0, getSize());
+}
+
+void Quicksort::quicksort(int* list, int index_start, int index_end){
     if (index_start >= index_end) {
         return; 
     }
@@ -29,10 +34,10 @@ void Quicksort::sort(int* list, int index_start, int index_end){
         
     }
     if (j > index_start) {
-        sort(list, index_start, j);
+        quicksort(list, index_start, j);
     }
     if (i < index_end) {
-        sort(list, i, index_end);
+        quicksort(list, i, index_end);
     }
 }
 

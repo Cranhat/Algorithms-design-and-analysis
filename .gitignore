@@ -1,3 +1,14 @@
 # Ignore 
+.vs/
 .vscode
-.csv
+*.ipnyb_checkpoints
+*.csv
+*.suo
+*.user
+*.exe
+*.obj
+*.log
+*.cache
+*.pdb
+*.ipch  
+*.db

@@ -2,9 +2,11 @@
 
 #include "../DynamicArray/DynamicArray.hpp"
 
-class BubbleSort : public DynamicArray {
+class Bubblesort : public DynamicArray {
     public:
     
-    void sort(int* list, int size);
+    void sort();
+
+    void bubblesort(int* list, int size);
     
 };

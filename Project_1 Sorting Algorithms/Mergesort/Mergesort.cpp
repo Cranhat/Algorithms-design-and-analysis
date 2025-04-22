@@ -3,8 +3,11 @@
 
 #include "Mergesort.hpp"
 
+void Mergesort::sort(){
+    mergesort(data, 0, getSize());
+}
 
-void Mergesort::sort(int* list, int start_index, int end_index){
+void Mergesort::mergesort(int* list, int start_index, int end_index){
 
     if (end_index <= 1) return;
 
@@ -19,8 +22,8 @@ void Mergesort::sort(int* list, int start_index, int end_index){
         arrayRight[i] = list[i + mid];
     }
 
-    sort(arrayLeft, 0, mid);
-    sort(arrayRight, 0, end_index - mid);
+    mergesort(arrayLeft, 0, mid);
+    mergesort(arrayRight, 0, end_index - mid);
 
     merge(list, arrayLeft, arrayRight, mid, end_index - mid);
 

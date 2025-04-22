@@ -1,7 +1,11 @@
 #include "Insertionsort.hpp"
 #include "../Utilities/utilities.hpp"
 
-void Insertionsort::sort(int* list, int index_start, int index_end){
+
+void Insertionsort::sort(){
+    insertionsort(data, 0, getSize());
+}
+void Insertionsort::insertionsort(int* list, int index_start, int index_end){
     int i = index_start;
     int j;
     while(i < index_end){

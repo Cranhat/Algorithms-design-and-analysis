@@ -25,8 +25,10 @@ int main(){
 
     Heapsort heapsort;
     Testing testing;
+
     int number_of_measurements = 30;
     int mean_of_operations = 1;
+    
     testing.test_sort_operation(saveFilePath + "heapsort.csv", dataFilePath, heapsort, number_of_measurements, mean_of_operations);
     return 0;
 }

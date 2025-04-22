@@ -5,9 +5,8 @@
 #include "../Utilities/utilities.hpp"
 
 
-void Introsort::sort(int* list, int start_index, int end_index){
-    int depth = 3 * log(end_index - start_index);
-    introsort(list, start_index, end_index, depth);
+void Introsort::sort(){
+    introsort(data, 0, getSize(), 3 * log(getSize()));
 }
 
 void Introsort::introsort(int* list, int start_index, int end_index, int depth){

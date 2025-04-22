@@ -6,7 +6,9 @@
 class Insertionsort : public DynamicArray {
     public:
 
-    void sort(int* list, int index_start, int index_end);
+    void sort();
+
+    void insertionsort(int* list, int index_start, int index_end);
 
     using DynamicArray::DynamicArray;
     
