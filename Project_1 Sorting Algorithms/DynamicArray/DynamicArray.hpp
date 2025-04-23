@@ -42,4 +42,6 @@ public:
 
 	void sort();
 
+	void reverse();
+
 };

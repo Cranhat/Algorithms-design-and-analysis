@@ -3,8 +3,8 @@
 #include "../DynamicArray/DynamicArray.hpp"
 
 
-void Bubblesort::sort(){
-    bubblesort(data, getSize());
+void Bubblesort::sort(int start, int end){
+    bubblesort(data, end);
 }
 
 void Bubblesort::bubblesort(int* list, int size){

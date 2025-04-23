@@ -7,7 +7,7 @@ class Introsort : public DynamicArray {
 
     public: 
 
-    void sort();
+    void sort(int start, int end);
 
     void introsort(int* list, int start_index, int end_index, int depth);
 

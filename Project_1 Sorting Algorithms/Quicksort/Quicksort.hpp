@@ -5,7 +5,7 @@
 class Quicksort : public DynamicArray {
     public:
 
-    void sort();
+    void sort(int start, int end);
 
     void quicksort(int* list, int index_start, int index_end);
 

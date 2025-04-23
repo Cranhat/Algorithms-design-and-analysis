@@ -3,8 +3,8 @@
 
 #include "Mergesort.hpp"
 
-void Mergesort::sort(){
-    mergesort(data, 0, getSize());
+void Mergesort::sort(int start, int end){
+    mergesort(data, start, end);
 }
 
 void Mergesort::mergesort(int* list, int start_index, int end_index){

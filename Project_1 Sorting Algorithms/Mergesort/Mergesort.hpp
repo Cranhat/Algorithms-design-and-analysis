@@ -5,7 +5,7 @@
 class Mergesort : public DynamicArray {
     public:
 
-    void sort();
+    void sort(int start, int end);
 
     void mergesort(int* list, int start_index, int end_index);
 

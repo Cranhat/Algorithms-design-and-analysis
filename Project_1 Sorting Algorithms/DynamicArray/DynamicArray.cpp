@@ -133,3 +133,11 @@ void DynamicArray::clear(){
 }
 
 void DynamicArray::sort(){}
+
+void DynamicArray::reverse(){
+	for (int i = 0; i < size - 1; i++){
+
+        std::swap(data[i], data[size - 1 - i]);
+        
+    }
+}

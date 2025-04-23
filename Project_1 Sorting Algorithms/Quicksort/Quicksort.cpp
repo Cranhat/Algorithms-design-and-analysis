@@ -6,8 +6,8 @@
 #include "../Utilities/utilities.hpp"
 
 
-void Quicksort::sort(){
-    quicksort(data, 0, getSize());
+void Quicksort::sort(int start, int end){
+    quicksort(data, start, end);
 }
 
 void Quicksort::quicksort(int* list, int index_start, int index_end){

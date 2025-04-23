@@ -5,7 +5,7 @@
 class Bubblesort : public DynamicArray {
     public:
     
-    void sort();
+    void sort(int start, int end);
 
     void bubblesort(int* list, int size);
     

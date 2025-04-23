@@ -26,5 +26,7 @@ int DataStructure::firstElement(){ return 0;}
 
 void DataStructure::clear(){}
 
-void DataStructure::sort(){}
+void DataStructure::sort(int start, int end){}
+
+void DataStructure::reverse(){}
 

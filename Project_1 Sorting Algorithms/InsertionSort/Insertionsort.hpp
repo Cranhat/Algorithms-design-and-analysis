@@ -6,7 +6,7 @@
 class Insertionsort : public DynamicArray {
     public:
 
-    void sort();
+    void sort(int start, int end);
 
     void insertionsort(int* list, int index_start, int index_end);
 

@@ -5,7 +5,7 @@
 class Heapsort : public DynamicArray {
     public:
 
-    void sort();
+    void sort(int start, int end);
 
     void heapsort(int* list, int start_index, int end_index);
 

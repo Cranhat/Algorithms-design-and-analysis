@@ -2,8 +2,8 @@
 #include "../Utilities/utilities.hpp"
 
 
-void Insertionsort::sort(){
-    insertionsort(data, 0, getSize());
+void Insertionsort::sort(int start, int end){
+    insertionsort(data, start, end);
 }
 void Insertionsort::insertionsort(int* list, int index_start, int index_end){
     int i = index_start;

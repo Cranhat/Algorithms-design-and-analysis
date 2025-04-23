@@ -1,7 +1,7 @@
 #include "Heapsort.hpp"
 
-void Heapsort::sort(){
-    heapsort(data, 0, getSize());
+void Heapsort::sort(int start, int end){
+    heapsort(data, start, end);
 }
 void Heapsort::heapsort(int* list, int start_index, int end_index){
     for(int i = end_index/ 2 - 1; i >= 0; i--){

@@ -29,6 +29,8 @@ class DataStructure{
 
     virtual void clear();
 
-    virtual void sort();
+    virtual void sort(int start, int end);
+
+    virtual void reverse();
 
 };
