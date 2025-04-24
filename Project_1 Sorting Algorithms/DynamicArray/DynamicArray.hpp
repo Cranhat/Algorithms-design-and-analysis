@@ -40,7 +40,7 @@ public:
 	
 	bool contains(int value); 
 
-	void sort();
+	virtual void sort();
 
 	void reverse();
 
