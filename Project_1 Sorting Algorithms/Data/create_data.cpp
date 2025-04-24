@@ -4,22 +4,16 @@
 #include "../DataStructure/DataStructure.cpp"
 #include "../Utilities/Utilities.cpp"
 
-using namespace std;
-
 
 int main(){
+    // string saveFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/";
+    std::string saveFilePath = "C:/Users/Cyprian/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/";
+    int* list;
+    int list_size = 2000000;
+    for (int i = 0; i < 20; i++){
+        list = create_randomized_list(list_size, list_size);
 
-    int* list100000000 = create_randomized_list(100000000, 100000000);
-    string saveFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/1.csv";
-    save_array_to_csv(saveFilePath, list100000000 , 100000000);
-
-    // list100000000 = create_randomized_list(100000000, 100000000);
-    // saveFilePath = "C:/Users/Cyprian/Projects/Data-structures-academic-project/Project_1/Data/2.csv";
-    // save_array_to_csv(saveFilePath, list100000000 , 100000000);
-
-    // list100000000 = create_randomized_list(100000000, 100000000);
-    // saveFilePath = "C:/Users/Cyprian/Projects/Data-structures-academic-project/Project_1/Data/3.csv";
-    // save_array_to_csv(saveFilePath, list100000000 , 100000000);
-
+        save_array_to_csv(saveFilePath + std::to_string(i) + ".csv", list , list_size);
+    }
     return 0;
 }

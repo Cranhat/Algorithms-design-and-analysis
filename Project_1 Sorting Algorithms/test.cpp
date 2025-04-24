@@ -20,8 +20,11 @@
 
 
 int main(){
-    std::string saveFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Results/";
-    std::string dataFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/1.csv";
+    // std::string saveFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Results/";
+    // std::string dataFilePath = "C:/Users/cypri/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/1.csv";
+
+    std::string saveFilePath = "C:/Users/Cyprian/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Results/";
+    std::string dataFilePath = "C:/Users/Cyprian/Projects/Algorithms-design-and-analysis/Project_1 Sorting Algorithms/Data/";
 
     Testing testing;
 
@@ -30,8 +33,8 @@ int main(){
     Introsort introsort;
 
 
-    int number_of_measurements = 18;
-    int mean_of_operations = 1;
+    int number_of_measurements = 20;
+    int mean_of_operations = 20;
     
     testing.test_sort_operation(saveFilePath + "heapsort.csv", dataFilePath, heapsort, number_of_measurements, mean_of_operations);
     testing.test_sort_operation(saveFilePath + "quicksort.csv", dataFilePath, heapsort, number_of_measurements, mean_of_operations);

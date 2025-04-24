@@ -52,7 +52,7 @@ void Testing::test_sort_operation(std::string saveFilePath, std::string dataFile
 
         sum_of_time_elapsed = 0;
         for(int i = 0; i < mean_of_operations ; i++){
-            allocate_from_csv(object, dataFilePath, 1000 * (j + 1) * (j + 1));
+            allocate_from_csv(object, dataFilePath + std::to_string(i) +  ".csv", 1000 * (j + 1) * (j + 1));
             if (fraction_already_sorted){
                 object.sort(0, fraction_already_sorted * object.getSize());
             }
@@ -79,7 +79,7 @@ void Testing::test_sort_reversed_operation(std::string saveFilePath, std::string
 
         sum_of_time_elapsed = 0;
         for(int i = 0; i < mean_of_operations ; i++){
-            allocate_from_csv(object, dataFilePath, 1000 * (j + 1) * (j + 1));
+            allocate_from_csv(object, dataFilePath + std::to_string(i) +  ".csv", 1000 * (j + 1) * (j + 1));
             object.sort(0, object.getSize());
             object.reverse();
             if (fraction_already_sorted){
