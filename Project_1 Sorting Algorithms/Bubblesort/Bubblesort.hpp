@@ -8,5 +8,7 @@ class Bubblesort : public DynamicArray {
     void sort(int start, int end);
 
     void bubblesort(int* list, int size);
+
+    using DynamicArray::DynamicArray;
     
 };

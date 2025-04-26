@@ -11,4 +11,6 @@ class Mergesort : public DynamicArray {
 
     void merge(int* list, int* arrayLeft, int* arrayRight, int sizeLeft, int sizeRight);
 
+    using DynamicArray::DynamicArray;
+
 };

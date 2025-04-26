@@ -6,13 +6,13 @@
 
 
 void Introsort::sort(int start, int end){
-    introsort(data, start, end, 3 * log(getSize()));
+    introsort(data, start, end, 2 * log(getSize()));
 }
 
 void Introsort::introsort(int* list, int start_index, int end_index, int depth){
-    if ((end_index - start_index) < 16) return;
+    if ((end_index - start_index) < 16) insertionsort(data, start_index, end_index);
 
-    if (depth == 0){
+    else if (depth == 0){
         heapsort(list, start_index, end_index);
     }
     quicksort_depth_restricted(list, start_index, end_index, depth);
@@ -42,42 +42,43 @@ void Introsort::quicksort_depth_restricted(int* list, int index_start, int index
     }
 
     if (j > index_start) {
-        introsort(list, index_start, j, depth - 1);
+        quicksort_depth_restricted(list, index_start, j, depth - 1);
     }
     if (i < index_end) {
-        introsort(list, i, index_end, depth - 1);
+        quicksort_depth_restricted(list, i, index_end, depth - 1);
     }
     
 }
 
 void Introsort::heapsort(int* list, int start_index, int end_index){
-    for(int i = end_index/ 2 - 1; i >= 0; i--){
-        heapify(list, end_index, i);
+    int size = end_index - start_index + 1;
+    for (int i = start_index + size/2 - 1; i >= start_index; i--){
+        heapify(list, start_index, size, i);
     }
-    for (int i = end_index - 1; i >= 0; i--){
-        swap_items(list, i, 0);
-        heapify(list, i, 0);
+    for (int i = end_index; i > start_index; i--){
+        swap_items(list, start_index, i);
+        heapify(list, start_index, i - start_index, start_index);
     }
 }
 
-void Introsort::heapify(int* list, int size, int root){
+void Introsort::heapify(int* list, int base, int size, int root){
     int largest = root;
-    int left = 2 * root + 1;
-    int right = 2 * root + 2;
+    int left = base + 2 * (root - base) + 1;
+    int right = base + 2 * (root - base) + 2;
 
-    if (left < size && list[left] > list[largest]){
+    if (left < base + size && list[left] > list[largest]){
         largest = left;
     }
-    if (right < size && list[right] > list[largest]){
+    if (right < base + size && list[right] > list[largest]){
         largest = right;
     }
     if (largest != root){
         swap_items(list, largest, root);
-        heapify(list, size, largest);
+        heapify(list, base, size, largest);
     }
 }
 
-void Introsort::introsort(int* list, int index_start, int index_end){
+void Introsort::insertionsort(int* list, int index_start, int index_end){
     int i = index_start;
     int j;
     while(i < index_end){

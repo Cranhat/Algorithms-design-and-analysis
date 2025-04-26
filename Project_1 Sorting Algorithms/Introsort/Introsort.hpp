@@ -13,9 +13,12 @@ class Introsort : public DynamicArray {
 
     void quicksort_depth_restricted(int* list, int index_start, int index_end, int depth);    
     
-    void introsort(int* list, int index_start, int index_end);
+    void insertionsort(int* list, int index_start, int index_end);
     
-    void heapify(int* list, int size, int root);
+    void heapify(int* list, int base, int size, int root);
     
     void heapsort(int* list, int start_index, int end_index);
+
+    using DynamicArray::DynamicArray;
+
 };

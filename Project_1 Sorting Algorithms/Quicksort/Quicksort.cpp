@@ -7,12 +7,17 @@
 
 
 void Quicksort::sort(int start, int end){
+
     quicksort(data, start, end);
+
 }
 
 void Quicksort::quicksort(int* list, int index_start, int index_end){
+
     if (index_start >= index_end) {
+
         return; 
+
     }
     int i = index_start;
     int j = index_end;
@@ -20,16 +25,24 @@ void Quicksort::quicksort(int* list, int index_start, int index_end){
     int pivot_index = (index_end + index_start)/2;
     
     while (i <= j){
+
         while(list[i] < pivot){
+
             i++;
+
         }
         while(list[j] > pivot){
+
             j--;
+
         }
         if(i <= j){
+
             swap_items(list, i, j);
-            i++;
-            j--;
+
+            i++; j--;
+            
+
         }
         
     }
