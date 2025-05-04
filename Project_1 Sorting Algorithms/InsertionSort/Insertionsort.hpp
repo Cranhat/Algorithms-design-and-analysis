@@ -4,6 +4,7 @@
 
 
 class Insertionsort : public DynamicArray {
+    
     public:
 
     void sort(int start, int end);

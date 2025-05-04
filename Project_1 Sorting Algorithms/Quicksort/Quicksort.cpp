@@ -42,33 +42,47 @@ void Quicksort::quicksort(int* list, int index_start, int index_end){
 
             i++; j--;
             
-
         }
-        
     }
     if (j > index_start) {
+
         quicksort(list, index_start, j);
+
     }
     if (i < index_end) {
+
         quicksort(list, i, index_end);
+
     }
 }
 
 int Quicksort::find_pivot(int* list, int start, int end){
+
     int size = end - start;
     int pivot_index;
+
     if (size > 3){
+
         if (list[0] > list[end] && list[0] < list[end - size / 2]){
+
             pivot_index = 0;
+
         }
         else if (list[end - 1] > list[0] && list[end] < list[end - size / 2]){
+
             pivot_index = end;
+
         }
         else if (list[end - size / 2] > list[0] && list[end - size / 2] < list[end]){
+
             pivot_index = end -  size / 2;
+
         }
     }else{
+
         pivot_index = end -  size / 2;
+
     }
     return pivot_index;
+    
 }

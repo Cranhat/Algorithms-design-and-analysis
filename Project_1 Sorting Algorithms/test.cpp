@@ -68,7 +68,10 @@ int main(){
     testing.test_sort_operation(saveFilePath + "quicksort 99.7\% already sorted.csv", dataFilePath, quicksort, sizes, sizeof(sizes)/sizeof(sizes[0]), mean_of_operations, 0.997);
     testing.test_sort_operation(saveFilePath + "introsort 99.7\% already sorted.csv", dataFilePath, introsort, sizes, sizeof(sizes)/sizeof(sizes[0]), mean_of_operations, 0.997);
     printf("9\n");
-
+    testing.test_sort_operation(saveFilePath + "mergesort sorted.csv", dataFilePath, mergesort, sizes, sizeof(sizes)/sizeof(sizes[0]), mean_of_operations, 1);
+    testing.test_sort_operation(saveFilePath + "quicksort sorted.csv", dataFilePath, quicksort, sizes, sizeof(sizes)/sizeof(sizes[0]), mean_of_operations, 1);
+    testing.test_sort_operation(saveFilePath + "introsort sorted.csv", dataFilePath, introsort, sizes, sizeof(sizes)/sizeof(sizes[0]), mean_of_operations, 1);
+    printf("10\n");
 
     return 0;
 }

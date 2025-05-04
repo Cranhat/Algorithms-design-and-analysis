@@ -3,6 +3,7 @@
 #include "../DynamicArray/DynamicArray.hpp"
 
 class Bubblesort : public DynamicArray {
+    
     public:
     
     void sort(int start, int end);

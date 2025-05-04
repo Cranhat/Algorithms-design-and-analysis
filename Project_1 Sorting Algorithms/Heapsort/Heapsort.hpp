@@ -3,6 +3,7 @@
 #include "../DynamicArray/DynamicArray.hpp"
 
 class Heapsort : public DynamicArray {
+    
     public:
 
     void sort(int start, int end);
@@ -14,5 +15,6 @@ class Heapsort : public DynamicArray {
     void swapItems_heapsort(int* list, int first_item_index, int second_item_index);
 
     using DynamicArray::DynamicArray;
+
 };
 

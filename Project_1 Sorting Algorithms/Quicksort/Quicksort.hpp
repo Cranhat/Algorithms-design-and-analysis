@@ -3,6 +3,7 @@
 #include "../DynamicArray/DynamicArray.hpp"
 
 class Quicksort : public DynamicArray {
+    
     public:
 
     void sort(int start, int end);
@@ -12,4 +13,5 @@ class Quicksort : public DynamicArray {
     int find_pivot(int* list, int start, int end);
 
     using DynamicArray::DynamicArray;
+
 };
