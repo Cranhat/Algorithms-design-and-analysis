@@ -1,0 +1,2 @@
+Chess engine is made with UCI(United Chess Interface) in mind. All engine computations are made utilizing C++.
+Player time is handled mostly by GUI. Engine only gets time left, and based on this decides which move to choose.
