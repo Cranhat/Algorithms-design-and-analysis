@@ -9,12 +9,17 @@ All operations needs to be checked if king isnt check before move, after move, i
 class MovePolicy{
     protected:
 
-    unsigned long long righ_move_mask = 72340172838076673; // 0000000100000001000000010000000100000001000000010000000100000001
-    unsigned long long left_move_mask = 36170086419038336; // 1000000010000000100000001000000010000000100000001000000010000000
+    unsigned long long right_move_mask = 0x101010101010101ULL; // 0000000100000001000000010000000100000001000000010000000100000001
+    unsigned long long left_move_mask = 0x8080808080808080ULL; // 1000000010000000100000001000000010000000100000001000000010000000
 
-    // unsigned long long up_move_mask = 18374686479671623680;   // 1111111100000000000000000000000000000000000000000000000000000000
-    unsigned long long up_move_mask = 0xFF00000000000000ULL;
-    unsigned long long down_move_mask = 255; // 0000000000000000000000000000000000000000000000000000000011111111
+    unsigned long long up_move_mask = 0xFF00000000000000ULL; // 1111111100000000000000000000000000000000000000000000000000000000
+    unsigned long long down_move_mask = 0xFFULL; // 0000000000000000000000000000000000000000000000000000000011111111
+
+    unsigned long long diagonal_right_up_move_mask = 0xFF01010101010101ULL; // 1111111100000001000000010000000100000001000000010000000100000001
+    unsigned long long diagonal_right_down_move_mask = 0x1010101010101FFULL; // 0000000100000001000000010000000100000001000000010000000111111111
+
+    unsigned long long diagonal_left_up_move_mask = 0xFF80808080808080ULL;// 1111111110000000100000001000000010000000100000001000000010000000
+    unsigned long long diagonal_left_down_move_mask = 0x80808080808080FFULL;// 1000000010000000100000001000000010000000100000001000000011111111
 
     public:
 
@@ -22,6 +27,8 @@ class MovePolicy{
 
     unsigned long long available_vertical_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask);
 
-    unsigned long long available_diagonal_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask);
+    unsigned long long available_diagonal_up_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask);
+
+    unsigned long long available_diagonal_down_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask);
     
 };

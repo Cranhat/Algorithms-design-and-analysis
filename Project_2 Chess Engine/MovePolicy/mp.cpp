@@ -1,5 +1,6 @@
 #include <iostream>
 #include <bitset>
+#include <string>
 
 #include "MovePolicy.cpp"
 // unsigned long long white_pawns = 65280; // 0000000000000000000000000000000000000000000000001111111100000000
@@ -41,7 +42,15 @@ int Board[64] = {
 //         }
 //     }
 // }
-
+void print_board(std::string board){
+    for(int i = 0; i < 64; i++){
+        std::cout << board[i];
+        if ((i + 1) % 8 == 0){
+            std::cout << std::endl;
+        }
+    }
+    std::cout << std::endl;
+}
 int main(){ 
     // unsigned long long left_move_mask = 72340172838076673; // 0000000100000001000000010000000100000001000000010000000100000001
     // unsigned long long right_move_mask = 36170086419038336; // 1000000010000000100000001000000010000000100000001000000010000000
@@ -53,17 +62,26 @@ int main(){
     // std::cout << "figure_mask:     " << std::bitset<64>(figure_mask) << std::endl;
     // std::cout << "operation:       " << std::bitset<64>(figure_mask & right_move_mask) << std::endl;
 
-    unsigned long long figure_mask = 8589934592;     // 0000000000000000000000000000001000000000000000000000000000000000
+    unsigned long long figure_mask = 0x8000000;     // 0000000000000000000000000000000010000000000000000000000000000000
     unsigned long long moves_available = 0;
     MovePolicy mp;
+    
+    print_board(std::bitset<64>(figure_mask).to_string()); // king pos
 
-    std::cout << "operation:       " << std::bitset<64>(moves_available) << std::endl;
-    moves_available = mp.available_horizontal_moves(moves_available, 2, figure_mask);
+    moves_available = mp.available_horizontal_moves(moves_available, 1, figure_mask);
+    print_board(std::bitset<64>(moves_available).to_string());
 
-    std::cout << "operation:       " << std::bitset<64>(moves_available) << std::endl;
-    moves_available = mp.available_vertical_moves(moves_available, 2, figure_mask);
+    moves_available = mp.available_vertical_moves(moves_available, 1, figure_mask);
+    print_board(std::bitset<64>(moves_available).to_string());
 
-    std::cout << "operation:       " << std::bitset<64>(moves_available) << std::endl;
+    moves_available = mp.available_diagonal_up_moves(moves_available, 1, figure_mask);
+    print_board(std::bitset<64>(moves_available).to_string());
+   
+    moves_available = mp.available_diagonal_down_moves(moves_available, 1, figure_mask);
+    print_board(std::bitset<64>(moves_available).to_string()); // all king moves
+
+
+
     return 0; 
 }
 
@@ -73,19 +91,19 @@ int main(){
 00000000
 00000000
 00000000
-00000010
 00000000
+00001000
 00000000
 00000000
 00000000
 */
 /*
 00000000
-00000010
-00000010
-00001101
-00000010
-00000010
+00000000
+00000000
+11000001
+01000001
+10000000
 00000000
 00000000
 */
