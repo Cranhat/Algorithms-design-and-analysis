@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <iostream>
 #include "../Pieces/Pieces.hpp"
@@ -36,15 +38,6 @@ king = -6
 
 class Board{
     public:
-    // int Board[64] = {
-    // -2, -3, -4, -5, -6, -4, -3, -2,
-    // -1, -1, -1, -1, -1, -1, -1, -1,
-    // 0, 0, 0, 0, 0, 0, 0, 0,
-    // 0, 0, 0, 0, 0, 0, 0, 0,
-    // 0, 0, 0, 0, 0, 0, 0, 0,
-    // 0, 0, 0, 0, 0, 0, 0, 0,
-    // 1, 1, 1, 1, 1, 1, 1, 1,
-    // 2, 3, 4, 5, 6, 4, 3, 2}; // access via 8 * r + c
 
     Figure** board =  new Figure*[64];
 
@@ -106,5 +99,7 @@ class Board{
         
     bool is_black_checked();
 
+    unsigned long long black_mask();
 
+    unsigned long long white_mask();
 };
