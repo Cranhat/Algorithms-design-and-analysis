@@ -125,3 +125,80 @@ unsigned long long MovePolicy::available_diagonal_down_moves(unsigned long long 
 
     return moves_available;
 }
+
+/*
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+*/
+unsigned long long MovePolicy::available_knight_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask){
+
+    unsigned long long  second_figure_mask = figure_mask;
+    unsigned long long  third_figure_mask = figure_mask;
+    unsigned long long  fourth_figure_mask = figure_mask;
+    unsigned long long  fifth_figure_mask = figure_mask;
+    unsigned long long  sixth_figure_mask = figure_mask;
+    unsigned long long  seventh_figure_mask = figure_mask;
+    unsigned long long  eighth_figure_mask = figure_mask;
+    
+    
+    if(!(figure_mask & knight_up_up_left_move_mask)){
+        figure_mask <<= 17;
+        if (!(figure_mask & teammate_mask)){
+            moves_available |= figure_mask;
+        }
+    }
+    if(!(second_figure_mask & knight_up_left_left_move_mask)){
+        second_figure_mask <<= 10;
+        if (!(second_figure_mask & teammate_mask)){
+            moves_available |= second_figure_mask;
+        }
+    } 
+    if(!(third_figure_mask & knight_down_left_left_move_mask)){
+        third_figure_mask >>= 6;
+        if (!(third_figure_mask & teammate_mask)){
+            moves_available |= third_figure_mask;
+        }
+    }
+    if(!(fourth_figure_mask & knight_down_down_left_move_mask)){
+        fourth_figure_mask >>= 15;
+        if (!(fourth_figure_mask & teammate_mask)){
+            moves_available |= fourth_figure_mask;
+        }
+    }
+// -----------------------
+
+    if(!(fifth_figure_mask & knight_up_up_right_move_mask)){
+        fifth_figure_mask <<= 15;
+        if (!(fifth_figure_mask & teammate_mask)){
+            moves_available |= fifth_figure_mask;
+        }
+    }
+    if(!(sixth_figure_mask & knight_up_right_right_move_mask)){
+        sixth_figure_mask <<= 6;
+        if (!(sixth_figure_mask & teammate_mask)){
+            moves_available |= sixth_figure_mask;
+        }
+    } 
+    if(!(seventh_figure_mask & knight_down_right_right_move_mask)){
+        seventh_figure_mask >>= 10;
+        if (!(seventh_figure_mask & teammate_mask)){
+            moves_available |= seventh_figure_mask;
+        }
+    }
+    if(!(eighth_figure_mask & knight_down_down_right_move_mask)){
+        eighth_figure_mask >>= 17;
+        if (!(eighth_figure_mask & teammate_mask)){
+            moves_available |= eighth_figure_mask;
+        }
+    }
+
+
+
+    return moves_available;
+}
