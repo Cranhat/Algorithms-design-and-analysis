@@ -126,16 +126,6 @@ unsigned long long MovePolicy::available_diagonal_down_moves(unsigned long long 
     return moves_available;
 }
 
-/*
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-00000000
-*/
 unsigned long long MovePolicy::available_knight_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask){
 
     unsigned long long  second_figure_mask = figure_mask;
@@ -171,8 +161,6 @@ unsigned long long MovePolicy::available_knight_moves(unsigned long long moves_a
             moves_available |= fourth_figure_mask;
         }
     }
-// -----------------------
-
     if(!(fifth_figure_mask & knight_up_up_right_move_mask)){
         fifth_figure_mask <<= 15;
         if (!(fifth_figure_mask & teammate_mask)){
@@ -197,8 +185,7 @@ unsigned long long MovePolicy::available_knight_moves(unsigned long long moves_a
             moves_available |= eighth_figure_mask;
         }
     }
-
-
-
     return moves_available;
 }
+
+

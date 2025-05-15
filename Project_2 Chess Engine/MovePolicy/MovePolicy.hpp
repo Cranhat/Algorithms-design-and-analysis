@@ -1,4 +1,4 @@
-
+#pragma once
 /*
 Moving  up and down involves bit shift in amount of moves * rows, with taking int account edge cases,
 Moving left and down involves bitwise left or right shift, taking into consideration left and right move mask,
@@ -6,11 +6,9 @@ Moving diagonally involves combining both operations,
 
 All operations needs to be checked if king isnt check before move, after move, is draw because 50 moves without capture have been made, is piece in the way, and is piece in the destination
 */
-#pragma once
+#include "../Board/Board.hpp"
 
-#include "../Pieces/Pieces.hpp"
-
-class MovePolicy{
+class MovePolicy : public Board{
     protected:
     unsigned long long a = 0x0101010101010101ULL; // 0000000100000001000000010000000100000001000000010000000100000001
     unsigned long long b = 0x0202020202020202ULL; // 0000001000000010000000100000001000000010000000100000001000000010

@@ -2,8 +2,8 @@
 #include <bitset>
 #include <string>
 
-#include "MovePolicy.cpp"
 #include "../Board/Board.cpp"
+#include "MovePolicy.cpp"
 #include "../Pieces/Pieces.cpp"
 
 void print_board(std::string board){
