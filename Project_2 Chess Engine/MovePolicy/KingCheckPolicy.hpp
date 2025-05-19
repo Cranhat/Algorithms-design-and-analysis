@@ -1,10 +1,11 @@
-// #pragma once
+#pragma once
 
-// #include "MovePolicy.hpp"
-// #include "Board.hpp"
+#include "MovePolicy.hpp"
+#include "../Board/Board.hpp"
 
-// class KingCheckPolicy : public MovePolicy{
-//     bool is_terminal(unsigned long long king_mask, unsigned long long available_king_moves);
+class KingCheckPolicy : public MovePolicy{
+    public:
+    bool is_terminal(unsigned long long king_mask, unsigned long long available_king_moves);
 
-//     bool is_checked(unsigned long long king_mask, unsigned long long white_mask, unsigned long long black_mask);
-// };
+    bool is_checked(unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask);
+};

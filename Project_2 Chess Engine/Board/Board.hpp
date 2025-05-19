@@ -23,16 +23,16 @@ pawn = 1,
 rook = 2,
 horse = 3, 
 bishop = 4,
-queen = 5, 
-king = 6
+queen = 6, 
+king = 5
 
 blacks:
 pawn = -1,
 rook = -2,
 horse = -3, 
 bishop = -4,
-queen = -5, 
-king = -6
+queen = -6, 
+king = -5
 */
 
 
@@ -42,13 +42,17 @@ class Board{
     Figure** board =  new Figure*[64];
 
     Board(){
+                
+        for (int i = 0; i < 64; i++){
+            board[i] == nullptr;
+        }
         board[0] = new Rook(0x8000000000000000ULL, -1);
-        board[1] = new Horse(0x4000000000000000ULL,-1);
+        board[1] = new Knight(0x4000000000000000ULL,-1);
         board[2] = new Bishop(0x2000000000000000ULL, -1);
         board[3] = new Queen(0x1000000000000000ULL, -1);
         board[4] = new King(0x800000000000000ULL, -1);
         board[5] = new Bishop(0x400000000000000ULL, -1);
-        board[6] = new Horse(0x200000000000000ULL, -1);
+        board[6] = new Knight(0x200000000000000ULL, -1);
         board[7] = new Rook(0x100000000000000ULL, -1);
 
         board[8] = new Pawn(0x80000000000000ULL, -1);
@@ -59,10 +63,8 @@ class Board{
         board[13] = new Pawn(0x4000000000000ULL, -1);
         board[14] = new Pawn(0x2000000000000ULL, -1);
         board[15] = new Pawn(0x1000000000000ULL, -1);
-        
-        for (int i = 16; i < 48; i++){
-            board[i] == nullptr;
-        }
+
+
 
         board[48] = new Pawn(0x8000ULL, 1);
         board[49] = new Pawn(0x4000ULL, 1);
@@ -74,12 +76,12 @@ class Board{
         board[55] = new Pawn(0x100ULL, 1);
 
         board[56] = new Rook(0x80ULL, 1);
-        board[57] = new Horse(0x40ULL, 1);
+        board[57] = new Knight(0x40ULL, 1);
         board[58] = new Bishop(0x20ULL, 1);
         board[59] = new Queen(0x10ULL, 1);
         board[60] = new King(0x8ULL, 1);
         board[61] = new Bishop(0x4ULL, 1);
-        board[62] = new Horse(0x2ULL, 1);
+        board[62] = new Knight(0x2ULL, 1);
         board[63] = new Rook(0x01ULL, 1);
 
     }

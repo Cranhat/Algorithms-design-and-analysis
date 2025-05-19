@@ -16,13 +16,13 @@ bool Board::is_black_checked(){
 }
 
 void Board::print_board(){
-    for(int i = 0; i < 64; i++){
+    for(int i = 63; i >= 0; i--){
         if (board[i] != nullptr){
             std::cout << board[i] -> identifier  *  board[i] -> color << " ";
         }else{
             std::cout << "0 " ;
         }
-        if ((i + 1) % 8 == 0) std::cout << std::endl;
+        if ((i) % 8 == 0) std::cout << std::endl;
     }
 }
 

@@ -34,13 +34,13 @@ struct Rook : public Figure{
     ~Rook() override {}
 };
 
-struct Horse : public Figure{
+struct Knight : public Figure{
 
-    Horse(unsigned long long mask, int color)  : Figure("horse", 3, mask, color){
+    Knight(unsigned long long mask, int color)  : Figure("knight", 3, mask, color){
         this -> mask = mask;
         this -> color = color;
     }
-    ~Horse() override {}
+    ~Knight() override {}
 
 };
 
