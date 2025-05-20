@@ -29,7 +29,7 @@ void Board::print_board(){
 unsigned long long Board::black_mask(){
     unsigned long long black_mask = 0;
     for(int i = 0; i < 64; i++){
-        if (board[i] && board[i] -> color == -1){
+        if (board[i] && (board[i] -> color == -1)){
             black_mask |= (1ULL << i);
         }
     }
@@ -39,7 +39,7 @@ unsigned long long Board::black_mask(){
 unsigned long long Board::white_mask(){
     unsigned long long white_mask = 0;
     for(int i = 0; i < 64; i++){
-        if (board[i] && board[i] -> color == 1){
+        if (board[i] && (board[i] -> color == 1)){
             white_mask |= (1ULL << i);
         }
     }

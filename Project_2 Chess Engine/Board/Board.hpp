@@ -63,9 +63,7 @@ class Board{
         board[13] = new Pawn(0x4000000000000ULL, -1);
         board[14] = new Pawn(0x2000000000000ULL, -1);
         board[15] = new Pawn(0x1000000000000ULL, -1);
-
-
-
+        
         board[48] = new Pawn(0x8000ULL, 1);
         board[49] = new Pawn(0x4000ULL, 1);
         board[50] = new Pawn(0x2000ULL, 1);
