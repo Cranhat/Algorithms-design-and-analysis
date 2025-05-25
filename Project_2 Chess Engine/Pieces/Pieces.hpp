@@ -57,7 +57,7 @@ struct Bishop : public Figure{
 
 struct Queen : public Figure{
 
-    Queen(unsigned long long mask, int color) : Figure("queen", 5, mask, color){
+    Queen(unsigned long long mask, int color) : Figure("queen", 6, mask, color){
         this -> mask = mask;
         this -> color = color;
     }  
@@ -68,7 +68,7 @@ struct Queen : public Figure{
 
 struct King : public Figure{
 
-    King(unsigned long long mask, int color)  : Figure("king", 6, mask, color){
+    King(unsigned long long mask, int color)  : Figure("king", 5, mask, color){
         this -> mask = mask;
         this -> color = color;
     }  

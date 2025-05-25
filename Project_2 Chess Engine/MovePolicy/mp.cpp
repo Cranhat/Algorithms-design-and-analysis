@@ -3,7 +3,7 @@
 #include <string>
 
 #include "../Board/Board.cpp"
-#include "MovePolicy.cpp"
+#include "FigureMoves.cpp"
 #include "KingCheckPolicy.cpp"
 #include "../Pieces/Pieces.cpp"
 
@@ -19,7 +19,7 @@ void print_board(std::string board){
 
 int main(){ 
 
-    MovePolicy mp;
+    FigureMoves mp;
 
     Board board;
 
@@ -55,7 +55,7 @@ int main(){
     bool is_king_checked;
 
     // is_king_checked = kp.is_checked(figure_mask, white_mask, black_mask);
-    is_king_checked = kp.is_checked(figure_mask, black_mask, white_mask);
+    is_king_checked = kp.is_checked(figure_mask, black_mask, white_mask, -1);
     std::cout << is_king_checked << std::endl;
 
     // moves_available = mp.available_knight_moves(moves_available, 1, figure_mask, white_mask, black_mask);

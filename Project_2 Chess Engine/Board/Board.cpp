@@ -16,14 +16,20 @@ bool Board::is_black_checked(){
 }
 
 void Board::print_board(){
-    for(int i = 63; i >= 0; i--){
+    for(int i = 0; i < 64; i++){
         if (board[i] != nullptr){
-            std::cout << board[i] -> identifier  *  board[i] -> color << " ";
+            if (board[i] -> color == -1){
+                std::cout << board[i] -> identifier  *  board[i] -> color << " ";
+            }else{
+                std::cout << " " <<board[i] -> identifier  *  board[i] -> color << " ";
+            }
         }else{
-            std::cout << "0 " ;
+            std::cout << " 0 " ;
         }
-        if ((i) % 8 == 0) std::cout << std::endl;
+        if ((i + 1) % 8 == 0) std::cout << "   " << (int) i/8 + 1 <<std::endl;
     }
+    //  std::cout << std::endl <<  " a  b  c  d  e  f  g  h " << std::endl;
+    std::cout << std::endl <<  " h  g  f  e  d  c  b  a " << std::endl;  
 }
 
 unsigned long long Board::black_mask(){

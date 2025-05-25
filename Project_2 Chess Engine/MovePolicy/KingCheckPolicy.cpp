@@ -5,14 +5,14 @@
 
 // __builtin_ctzll(bitboard) // returns first positive bit lavue index
 
-bool KingCheckPolicy::is_terminal(unsigned long long king_mask, unsigned long long available_king_moves, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
-    if (is_checked(king_mask, teammate_mask, enemy_mask, color) & !available_king_moves){
+bool KingCheckPolicy::is_terminal(Figure** board, unsigned long long king_mask, unsigned long long available_king_moves, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
+    if (is_checked(board, king_mask, teammate_mask, enemy_mask, color) & !available_king_moves){
         return true;
     }
     return false;
 }
 
-bool KingCheckPolicy::is_checked(unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
+bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
     unsigned long long king_checking_figures = 0;
     int scope = 8;
     int index;
