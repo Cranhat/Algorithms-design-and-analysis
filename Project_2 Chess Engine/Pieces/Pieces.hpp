@@ -7,17 +7,18 @@ struct Figure{
     int identifier;
     unsigned long long mask;
     int color; // 1 - white, -1 - black
+    int cost;
 
     virtual ~Figure() = default;
-    Figure(std::string type, int identifier, unsigned long long mask, int color)
-    : type(type), identifier(identifier), mask(mask), color(color) {}
+    Figure(std::string type, int identifier, int cost, unsigned long long mask, int color)
+    : type(type), identifier(identifier), cost(cost), mask(mask), color(color) {}
 
 
 };
 
 struct Pawn : public Figure{
 
-    Pawn(unsigned long long mask, int color) : Figure("pawn", 1, mask, color){
+    Pawn(unsigned long long mask, int color) : Figure("pawn", 1, 1, mask, color){
         this -> mask = mask;
         this -> color = color;
     }
@@ -27,7 +28,7 @@ struct Pawn : public Figure{
 
 struct Rook : public Figure{
 
-    Rook(unsigned long long mask, int color) : Figure("rook", 2, mask, color){
+    Rook(unsigned long long mask, int color) : Figure("rook", 2, 5, mask, color){
         this -> mask = mask;
         this -> color = color;
     }
@@ -36,7 +37,7 @@ struct Rook : public Figure{
 
 struct Knight : public Figure{
 
-    Knight(unsigned long long mask, int color)  : Figure("knight", 3, mask, color){
+    Knight(unsigned long long mask, int color)  : Figure("knight", 3, 3, mask, color){
         this -> mask = mask;
         this -> color = color;
     }
@@ -46,7 +47,7 @@ struct Knight : public Figure{
 
 struct Bishop : public Figure{
 
-    Bishop(unsigned long long mask, int color) : Figure("bishop", 4, mask, color){
+    Bishop(unsigned long long mask, int color) : Figure("bishop", 4, 3, mask, color){
         this -> mask = mask;
         this -> color = color;
     }  
@@ -57,7 +58,7 @@ struct Bishop : public Figure{
 
 struct Queen : public Figure{
 
-    Queen(unsigned long long mask, int color) : Figure("queen", 6, mask, color){
+    Queen(unsigned long long mask, int color) : Figure("queen", 6, 9, mask, color){
         this -> mask = mask;
         this -> color = color;
     }  
@@ -68,7 +69,7 @@ struct Queen : public Figure{
 
 struct King : public Figure{
 
-    King(unsigned long long mask, int color)  : Figure("king", 5, mask, color){
+    King(unsigned long long mask, int color)  : Figure("king", 5, 100000, mask, color){
         this -> mask = mask;
         this -> color = color;
     }  

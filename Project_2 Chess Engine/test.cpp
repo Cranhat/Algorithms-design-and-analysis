@@ -25,16 +25,19 @@ int main(){
 
     engine.Board::print_board();
 
+    std:: cout << engine.evaluate_position();
 
-    unsigned long long* aam = engine.all_available_moves(-1);
+    unsigned long long* aam = engine.all_available_moves(1);
 
-    std::cout << "eval of the position is: " << engine.evaluate_position() << std::endl;
-    std::cout << "--------------------------------------\n";
-    for(int i = 0; i < 64; i++){
-        std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
-        print_bitboard(std::bitset<64>(aam[i]).to_string());
-    }
-    std::cout << "--------------------------------------\n";
+
+    
+    // std::cout << "--------------------------------------\n";
+    // for(int i = 0; i < 64; i++){
+    //     std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
+    //     print_bitboard(std::bitset<64>(aam[i]).to_string());
+    // }
+    // std::cout << "--------------------------------------\n";
 
     return 0;
 }
+

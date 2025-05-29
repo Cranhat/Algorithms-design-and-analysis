@@ -6,7 +6,7 @@ unsigned long long FigureMoves::available_horizontal_moves(unsigned long long mo
     int counter = 0;
     unsigned long long  second_figure_mask = figure_mask;
 
-    while(counter++ < scope && !(figure_mask & right_move_mask)){
+    while(counter++ < scope && !(figure_mask & left_move_mask)){
     
         figure_mask <<= 1;
         if (figure_mask & teammate_mask){
@@ -20,7 +20,7 @@ unsigned long long FigureMoves::available_horizontal_moves(unsigned long long mo
     }
 
     counter = 0;
-    while(counter++ < scope && !(second_figure_mask & left_move_mask)){
+    while(counter++ < scope && !(second_figure_mask & right_move_mask)){
         second_figure_mask >>= 1;
         if (second_figure_mask & teammate_mask){
             break;
@@ -38,7 +38,7 @@ unsigned long long FigureMoves::available_down_moves(unsigned long long moves_av
     int counter = 0;
     
     while(counter++ < scope && !(figure_mask & down_move_mask)){
-        figure_mask <<= 8;
+        figure_mask >>= 8;
         if (figure_mask & teammate_mask){
             break;
         }
@@ -56,7 +56,7 @@ unsigned long long FigureMoves::available_up_moves(unsigned long long moves_avai
     int counter = 0;
     
     while(counter++ < scope && !(figure_mask & up_move_mask)){
-        figure_mask >>= 8;
+        figure_mask <<= 8;
         if (figure_mask & teammate_mask){
             break;
         }
@@ -75,7 +75,7 @@ unsigned long long FigureMoves::available_vertical_moves(unsigned long long move
     unsigned long long  second_figure_mask = figure_mask;
     
     while(counter++ < scope && !(figure_mask & down_move_mask)){
-        figure_mask <<= 8;
+        figure_mask >>= 8;
         if (figure_mask & teammate_mask){
             break;
         }
@@ -87,7 +87,7 @@ unsigned long long FigureMoves::available_vertical_moves(unsigned long long move
     }
     counter = 0;
     while(counter++ < scope && !(second_figure_mask & up_move_mask)){
-        second_figure_mask >>= 8;
+        second_figure_mask <<= 8;
         if (second_figure_mask & teammate_mask){
             break;
         }
@@ -106,7 +106,7 @@ unsigned long long FigureMoves::available_diagonal_up_moves(unsigned long long m
     int counter = 0;
     unsigned long long  second_figure_mask = figure_mask;
     
-    while(counter++ < scope && !(figure_mask & diagonal_right_up_move_mask)){
+    while(counter++ < scope && !(figure_mask & diagonal_left_up_move_mask)){
         figure_mask <<= 9;
         if (figure_mask & teammate_mask){
             break;
@@ -117,7 +117,7 @@ unsigned long long FigureMoves::available_diagonal_up_moves(unsigned long long m
         moves_available |= figure_mask;
     }
     counter = 0;
-    while(counter++ < scope && !(second_figure_mask & diagonal_left_up_move_mask)){
+    while(counter++ < scope && !(second_figure_mask & diagonal_right_up_move_mask)){
         second_figure_mask <<= 7;
         if (second_figure_mask & teammate_mask){
             break;
@@ -136,7 +136,7 @@ unsigned long long FigureMoves::available_diagonal_down_moves(unsigned long long
     int counter = 0;
     unsigned long long  second_figure_mask = figure_mask;
     
-    while(counter++ < scope && !(figure_mask & diagonal_right_down_move_mask)){
+    while(counter++ < scope && !(figure_mask & diagonal_left_down_move_mask)){
         figure_mask >>= 7;
         if (figure_mask & teammate_mask){
             break;
@@ -148,7 +148,7 @@ unsigned long long FigureMoves::available_diagonal_down_moves(unsigned long long
         moves_available |= figure_mask;
     }
     counter = 0;
-    while(counter++ < scope && !(second_figure_mask & diagonal_left_down_move_mask)){
+    while(counter++ < scope && !(second_figure_mask & diagonal_right_down_move_mask)){
         second_figure_mask >>= 9;
         if (second_figure_mask & teammate_mask){
             break;
@@ -173,7 +173,7 @@ unsigned long long FigureMoves::available_knight_moves(unsigned long long moves_
     unsigned long long  eighth_figure_mask = figure_mask;
     
     
-    if(!(figure_mask & knight_up_up_left_move_mask)){
+    if(!(figure_mask & knight_up_up_right_move_mask)){
         figure_mask <<= 17;
         if (!(figure_mask & teammate_mask)){
             moves_available |= figure_mask;
@@ -209,7 +209,7 @@ unsigned long long FigureMoves::available_knight_moves(unsigned long long moves_
             moves_available |= sixth_figure_mask;
         }
     } 
-    if(!(seventh_figure_mask & knight_down_right_right_move_mask)){
+    if(!(seventh_figure_mask & knight_down_right_right_move_mask)){ // to cos z maska
         seventh_figure_mask >>= 10;
         if (!(seventh_figure_mask & teammate_mask)){
             moves_available |= seventh_figure_mask;

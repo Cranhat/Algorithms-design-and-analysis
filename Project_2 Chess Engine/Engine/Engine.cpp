@@ -91,8 +91,37 @@ float Engine::evaluate_position(){ // add Figure** board to args, change to cost
     float sum = 0;
     for(int i = 0; i < 64; i++){
         if (board[i] != nullptr){
-            sum += (board[i] -> identifier) * (board[i] -> color);
+        
+            sum += ((board[i] -> cost) + get_additional_move_value(__builtin_ctzll(board[i] -> mask), board[i] -> identifier, board[i] -> color)) * (board[i] -> color);
+            // sum += board[i] -> color * board[i] -> cost;
         }
     }
     return sum;
+}
+
+void Engine::move(int start_position, int end_position, int move_mask){
+
+}
+
+double Engine::get_additional_move_value(int index, int piece_type, int piece_color){
+    float additional_value = 0;
+
+    additional_value += center_pieces_mask[index];
+
+    if (piece_color == 1){
+        if (piece_type == 5){
+            additional_value += white_king_mask[index];
+        }
+    }
+
+    if (piece_color == -1){
+        if (piece_type == 5){
+            additional_value += black_king_mask[index];
+        }
+    }
+
+    
+
+
+    return additional_value;
 }

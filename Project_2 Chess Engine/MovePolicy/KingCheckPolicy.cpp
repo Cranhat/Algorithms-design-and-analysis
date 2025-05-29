@@ -55,7 +55,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     }
     counter = 0;
     while(counter++ < scope && !(copies[2] & up_move_mask)){
-        copies[2] >>= 8;
+        copies[2] <<= 8;
         if (copies[2] & teammate_mask){
             break;
         }else if (copies[2] & enemy_mask){
@@ -69,7 +69,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     counter = 0;
     while(counter++ < scope && !(copies[3] & down_move_mask)){
     
-        copies[3] <<= 8;
+        copies[3] >>= 8;
         if (copies[3] & teammate_mask){
             break;
         }else if (copies[3] & enemy_mask){
