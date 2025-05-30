@@ -97,11 +97,7 @@ class Board{
 
     void print_board();
 
-    bool is_terminal();
-
-    bool is_white_checked();
-        
-    bool is_black_checked();
+    void print_board(Figure** board);
 
     unsigned long long black_mask();
 

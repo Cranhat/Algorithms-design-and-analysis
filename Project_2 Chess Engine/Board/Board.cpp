@@ -3,19 +3,24 @@
 #include <cmath>
 
 
-bool Board::is_terminal(){
-    return false;
-}
-
-bool Board::is_white_checked(){
-    return false;
-}
-
-bool Board::is_black_checked(){
-    return false;
-}
 
 void Board::print_board(){
+    for(int i = 0; i < 64; i++){
+        if (board[i] != nullptr){
+            if (board[i] -> color == -1){
+                std::cout << board[i] -> identifier  *  board[i] -> color << " ";
+            }else{
+                std::cout << " " <<board[i] -> identifier  *  board[i] -> color << " ";
+            }
+        }else{
+            std::cout << " 0 " ;
+        }
+        if ((i + 1) % 8 == 0) std::cout << "   " << (int)  8 - (i/8) <<std::endl;
+    }
+    std::cout << std::endl <<  " h  g  f  e  d  c  b  a " << std::endl;  
+}
+
+void Board::print_board(Figure** board){
     for(int i = 0; i < 64; i++){
         if (board[i] != nullptr){
             if (board[i] -> color == -1){

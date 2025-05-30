@@ -31,12 +31,20 @@ int main(){
 
 
     
-    // std::cout << "--------------------------------------\n";
-    // for(int i = 0; i < 64; i++){
-    //     std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
-    //     print_bitboard(std::bitset<64>(aam[i]).to_string());
-    // }
-    // std::cout << "--------------------------------------\n";
+    std::cout << "--------------------------------------\n";
+    for(int i = 0; i < 64; i++){
+        std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
+        print_bitboard(std::bitset<64>(aam[i]).to_string());
+    }
+    std::cout << "--------------------------------------\n";
+
+    unsigned long long* aam2 = engine.all_available_moves(-1);
+    for(int i = 0; i < 64; i++){
+        std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
+        print_bitboard(std::bitset<64>(aam2[i]).to_string());
+    }
+    std::cout << "--------------------------------------\n";
+
 
     return 0;
 }

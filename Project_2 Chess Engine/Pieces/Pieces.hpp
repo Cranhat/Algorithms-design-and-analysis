@@ -5,9 +5,10 @@
 struct Figure{
     std::string type;
     int identifier;
+    int cost;
     unsigned long long mask;
     int color; // 1 - white, -1 - black
-    int cost;
+
 
     virtual ~Figure() = default;
     Figure(std::string type, int identifier, int cost, unsigned long long mask, int color)
