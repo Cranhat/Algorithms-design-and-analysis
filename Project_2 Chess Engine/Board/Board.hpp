@@ -102,4 +102,8 @@ class Board{
     unsigned long long black_mask();
 
     unsigned long long white_mask();
+
+    unsigned long long get_king_mask(int color);
+
+    void move();
 };
