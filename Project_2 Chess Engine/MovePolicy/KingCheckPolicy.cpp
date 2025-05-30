@@ -83,7 +83,6 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
             
             index = __builtin_clzll(copies[3]);
             if (board[index] != nullptr){
-                std::cout << "identifier: " << board[index] -> identifier << std::endl;
                 if (board[index] -> identifier == 2 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5))){
                     king_checking_figures |= copies[3];
                 }

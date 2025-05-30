@@ -55,3 +55,34 @@ unsigned long long Board::white_mask(){
     }
     return white_mask;
 }
+
+unsigned long long Board::black_mask(Figure** boardd){
+    unsigned long long black_mask = 0;
+    for(int i = 0; i < 64; i++){
+        if (boardd[i] && (boardd[i] -> color == 1)){
+            black_mask |= (1ULL << i);
+        }
+    }
+    return black_mask;
+}
+
+unsigned long long Board::white_mask(Figure** boardd){
+    unsigned long long white_mask = 0;
+    for(int i = 0; i < 64; i++){
+        if (boardd[i] && (boardd[i] -> color == -1)){
+            white_mask |= (1ULL << i);
+        }
+    }
+    return white_mask;
+}
+
+unsigned long long Board::get_king_mask(int color){
+    for(int i = 0; i < 64; i++){
+        if(board[i] != nullptr){
+            if (board[i] -> identifier && (board[i] -> color == color)){
+                return board[i] -> mask;
+            }
+        }
+    }
+    return 0;
+}

@@ -36,8 +36,9 @@ int main(){
     }
 
     
-    board[0] = new Rook(0x8000000000000000ULL, -1);
+    // board[0] = new Rook(0x8000000000000000ULL, -1);
     board[1] = new Rook(0x4000000000000000ULL,-1);
+    board[2] = new Rook(0x2000000000000000ULL, -1);
 
     board[49] = new Rook(0x4000ULL, 1);
     board[57] = new King(0x40ULL, 1);
@@ -52,13 +53,12 @@ int main(){
 
     unsigned long long available_king_moves = 0;
     unsigned long long available_rook_moves = 0;
-    unsigned long long enemy_mask = board[0] -> mask | board[1] -> mask;
+    unsigned long long enemy_mask = board[2] -> mask | board[1] -> mask;
 
     unsigned long long rook_mask = board[49] -> mask;
     unsigned long long king_mask = board[57] -> mask;
     unsigned long long teammate_mask = king_mask | rook_mask;
     int king_scope = 1;
-    
     // available_vertical_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color)
     available_king_moves = engine.available_vertical_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
     available_king_moves = engine.available_horizontal_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);

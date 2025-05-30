@@ -10,6 +10,7 @@
 #include "../MovePolicy/SpecialMoves.cpp"
 #include "../MovePolicy/FigureMoves.cpp"
 
+
 void print_bitboard(std::string board){
     for(int i = 0; i < 64; i++){
         std::cout << board[i];
@@ -20,7 +21,55 @@ void print_bitboard(std::string board){
     std::cout << std::endl;
 }
 
+/*
+0 1 2 3 4 5 6 7
+8 ...
+*/
+
 int main(){
+    Engine engine;
+    Board someobj;
+
+    Figure** board = new Figure*[64];
+    for (int i = 0; i < 64; i++){
+        board[i] = nullptr;
+    }
+
     
+    board[0] = new King(0x8000000000000000ULL, -1);
+
+    board[57] = new King(0x40ULL, 1);
+
+    someobj.print_board(board);
+
+    unsigned long long available_king_moves = 0;
+    unsigned long long enemy_mask = board[0] -> mask;
+
+    unsigned long long king_mask = board[57] -> mask;
+    unsigned long long teammate_mask = board[57] -> mask;
+
+    int king_scope = 1;
+
+    available_king_moves = engine.available_vertical_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
+    available_king_moves = engine.available_horizontal_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
+    available_king_moves = engine.available_diagonal_up_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
+    available_king_moves = engine.available_diagonal_down_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
+
+    print_bitboard(std::bitset<64>(available_king_moves).to_string());
+
+
+    int check_var = engine.is_checked(board, king_mask, teammate_mask, enemy_mask, 1);
+    int check_terminal = engine.is_terminal(board, king_mask, available_king_moves, teammate_mask, enemy_mask, 1);
+
+    std::cout << "is checked: " << check_var << std::endl;
+    std::cout << "is terminal: " << check_terminal << std::endl;
+
+
+    for (int i = 0; i < 64; i++){
+        delete board[i];
+    }
+    delete board;
+    
+
     return 0;
 }

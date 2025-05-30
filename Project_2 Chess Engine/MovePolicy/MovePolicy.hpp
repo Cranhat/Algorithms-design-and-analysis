@@ -4,6 +4,6 @@
 #include "KingCheckPolicy.hpp"
 #include "SpecialMoves.hpp"
 
-class MovePolicy : public KingCheckPolicy, SpecialMoves{
+class MovePolicy : public FigureMoves, public SpecialMoves{
         
 };

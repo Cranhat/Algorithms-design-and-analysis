@@ -40,6 +40,8 @@ class Board{
     public:
 
     Figure** board =  new Figure*[64];
+    Figure* white_king_pointer;
+    Figure* black_king_pointer;
 
     Board(){
                 
@@ -65,7 +67,7 @@ class Board{
         board[14] = new Pawn(0x2000000000000ULL, -1);
         board[15] = new Pawn(0x1000000000000ULL, -1);
 
-        // board[27] = new Queen(0x200000000ULL, -1);
+        // board[27] = new Queen(0x200000000ULL, 1);
 
 
         board[48] = new Pawn(0x8000ULL, 1);
@@ -86,6 +88,8 @@ class Board{
         board[62] = new Knight(0x2ULL, 1);
         board[63] = new Rook(0x01ULL, 1);
 
+        white_king_pointer = board[59];
+        black_king_pointer = board[3];
     }
 
     ~Board(){
@@ -93,6 +97,8 @@ class Board{
             delete board[i];
         }
         delete board;
+        delete white_king_pointer;
+        delete black_king_pointer;
     }
 
     void print_board();
@@ -102,4 +108,13 @@ class Board{
     unsigned long long black_mask();
 
     unsigned long long white_mask();
+
+    
+    unsigned long long black_mask(Figure** board);
+
+    unsigned long long white_mask(Figure** board);
+
+    unsigned long long get_king_mask(int color);
+
+    void move();
 };
