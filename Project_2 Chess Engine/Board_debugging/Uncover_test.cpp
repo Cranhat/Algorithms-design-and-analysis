@@ -11,7 +11,8 @@
 #include "../MovePolicy/FigureMoves.cpp"
 
 
-void print_bitboard(std::string board){
+void print_bitboard(unsigned long long bitmask){
+    std:: string board = std::bitset<64>(bitmask).to_string();
     for(int i = 0; i < 64; i++){
         std::cout << board[i];
         if ((i + 1) % 8 == 0){
@@ -21,69 +22,40 @@ void print_bitboard(std::string board){
     std::cout << std::endl;
 }
 
-/*
-0 1 2 3 4 5 6 7
-8 ...
-*/
-
 int main(){
     Engine engine;
-    Board someobj;
 
-    Figure** board = new Figure*[64];
+    unsigned long long* aam = new unsigned long long[64];
+    int check_var, mate_var;
+
+    std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
+    engine.board[0] = new King(0x1ULL, 1);
+    engine.board[8] = new Rook(0x100ULL, 1);
+    // engine.board[57] = new Rook(0x200000000000000ULL, -1);
+    engine.board[56] = new Rook(0x100000000000000ULL, -1);
 
+    engine.print_board();
+    aam = engine.all_available_moves(1);
     
-    // board[0] = new Rook(0x8000000000000000ULL, -1);
-    board[1] = new Rook(0x4000000000000000ULL,-1);
-    board[2] = new Rook(0x2000000000000000ULL, -1);
-
-    board[49] = new Rook(0x4000ULL, 1);
-    board[57] = new King(0x40ULL, 1);
-
-    // board[58] = new King(0x20ULL, 1);
-
-    // board[48] = new Rook(0x8000ULL, 1);
-    // board[56] = new King(0x80ULL, 1);
-
-
-    someobj.print_board(board);
-
-    unsigned long long available_king_moves = 0;
-    unsigned long long available_rook_moves = 0;
-    unsigned long long enemy_mask = board[2] -> mask | board[1] -> mask;
-
-    unsigned long long rook_mask = board[49] -> mask;
-    unsigned long long king_mask = board[57] -> mask;
-    unsigned long long teammate_mask = king_mask | rook_mask;
-    int king_scope = 1;
-    // available_vertical_moves(unsigned long long moves_available, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color)
-    available_king_moves = engine.available_vertical_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
-    available_king_moves = engine.available_horizontal_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
-    available_king_moves = engine.available_diagonal_up_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
-    available_king_moves = engine.available_diagonal_down_moves(available_king_moves, king_scope, king_mask, teammate_mask, enemy_mask, king_mask, 1);
-
-    available_rook_moves = engine.available_vertical_moves(available_rook_moves, 8, rook_mask, teammate_mask, enemy_mask, king_mask, 1);
-    available_rook_moves = engine.available_horizontal_moves(available_rook_moves, 8, rook_mask, teammate_mask, enemy_mask, king_mask, 1);
-
-    print_bitboard(std::bitset<64>(available_king_moves).to_string());
-
-    print_bitboard(std::bitset<64>(available_rook_moves).to_string());
-
-    int check_var = engine.is_checked(board, king_mask, teammate_mask, enemy_mask, 1);
-    int check_terminal = engine.is_terminal(board, king_mask, available_king_moves, teammate_mask, enemy_mask, 1);
-
-    std::cout << "is checked: " << check_var << std::endl;
-    std::cout << "is terminal: " << check_terminal << std::endl;
-
-
-    for (int i = 0; i < 64; i++){
-        delete board[i];
-    }
-    delete board;
-    
-
+    // std::cout << "white mask:\n"; 
+    // print_bitboard(engine.white_mask());
+    // std::cout << "black_mask:\n"; 
+    // print_bitboard(engine.black_mask());
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, 0, engine.board[0] -> mask, 1);
+    unsigned long long king_available_moves = aam[0];
+    unsigned long long rook_available_moves = aam[8];
+    // unsigned long long king_available_moves = engine.show_available_moves(engine.board[56], 1);
+    // mate_var = engine.is_terminal(engine.board, engine.get_king_mask(1), king_available_moves, engine.white_mask(), engine.black_mask(), 1);
+    std::cout << "king available moves:\n"; 
+    print_bitboard(king_available_moves);
+    // unsigned long long rook_available_moves = engine.show_available_moves(engine.board[48], 1);
+    std::cout << "rook available moves:\n"; 
+    print_bitboard(rook_available_moves);
+    std::cout << "check var: " << check_var << std::endl;
+    std::cout << "mate var: " << mate_var << std::endl;
+    delete[] aam;
     return 0;
 }

@@ -32,7 +32,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
             break;
         }else if (copies[0] & enemy_mask){
 
-            index = __builtin_clzll(copies[0]);
+            index = __builtin_ctzll(copies[0]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 2 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5))){
                     king_checking_figures |= copies[1];
@@ -48,7 +48,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[1] & teammate_mask){
             break;
         }else if (copies[1] & enemy_mask){
-            index = __builtin_clzll(copies[1]);
+            index = __builtin_ctzll(copies[1]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 2 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5))){
                     king_checking_figures |= copies[1];
@@ -63,7 +63,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[2] & teammate_mask){
             break;
         }else if (copies[2] & enemy_mask){
-            index = __builtin_clzll(copies[2]);
+            index = __builtin_ctzll(copies[2]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 2 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5))){
                     king_checking_figures |= copies[2];
@@ -81,7 +81,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
             break;
         }else if (copies[3] & enemy_mask){
             
-            index = __builtin_clzll(copies[3]);
+            index = __builtin_ctzll(copies[3]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 2 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5))){
                     king_checking_figures |= copies[3];
@@ -97,7 +97,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[4] & teammate_mask){
             break;
         }else if (copies[4] & enemy_mask){
-            index =__builtin_clzll(copies[4]);
+            index =__builtin_ctzll(copies[4]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 4 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5)) || (color == 1 && counter == 1 && (board[index] -> identifier == 1))){
                     king_checking_figures |= copies[4];
@@ -112,7 +112,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[5] & teammate_mask){
             break;
         }else if (copies[5] & enemy_mask){
-            index =__builtin_clzll(copies[5]);
+            index =__builtin_ctzll(copies[5]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 4 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5)) || (color == 1 && counter == 1 && (board[index] -> identifier == 1))){
                     king_checking_figures |= copies[5];
@@ -128,7 +128,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[6] & teammate_mask){
             break;
         }else if (copies[6] & enemy_mask){
-            index =__builtin_clzll(copies[6]);
+            index =__builtin_ctzll(copies[6]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 4 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5)) || (color == -1 && counter == 1 && (board[index] -> identifier == 1))){
                     king_checking_figures |= copies[6];
@@ -143,7 +143,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
         if (copies[7] & teammate_mask){
             break;
         }else if (copies[7] & enemy_mask){
-            index =__builtin_clzll(copies[7]);
+            index =__builtin_ctzll(copies[7]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 4 || board[index] -> identifier == 6 || (counter == 1 && (board[index] -> identifier == 5)) || (color == -1 && counter == 1 && (board[index] -> identifier == 1))){
                     king_checking_figures |= copies[7];
@@ -155,7 +155,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[8] & knight_up_up_left_move_mask)){
         copies[8] <<= 17;
         if (copies[8] & enemy_mask){
-            index =__builtin_clzll(copies[8]);
+            index =__builtin_ctzll(copies[8]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[8];
@@ -166,7 +166,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[9] & knight_up_left_left_move_mask)){
         copies[9] <<= 10;
         if (copies[9] & enemy_mask){
-            index =__builtin_clzll(copies[9]);
+            index =__builtin_ctzll(copies[9]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[9];
@@ -177,7 +177,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[10]& knight_down_left_left_move_mask)){
         copies[10] >>= 6;
         if (copies[10] & enemy_mask){
-            index =__builtin_clzll(copies[10]);
+            index =__builtin_ctzll(copies[10]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[10];
@@ -188,7 +188,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[11] & knight_down_down_left_move_mask)){
         copies[11] >>= 15;
         if (copies[11] & enemy_mask){
-            index =__builtin_clzll(copies[11]);
+            index =__builtin_ctzll(copies[11]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[11];
@@ -199,7 +199,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[12] & knight_up_up_right_move_mask)){
         copies[12] <<= 15;
         if (copies[12] & enemy_mask){
-            index =__builtin_clzll(copies[12]);
+            index =__builtin_ctzll(copies[12]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[12];
@@ -210,7 +210,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[13] & knight_up_right_right_move_mask)){
         copies[13] <<= 6;
         if (copies[13] & enemy_mask){
-            index =__builtin_clzll(copies[13]);
+            index =__builtin_ctzll(copies[13]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[13];
@@ -221,7 +221,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[14] & knight_down_right_right_move_mask)){
         copies[14] >>= 10;
         if (copies[14] & enemy_mask){
-            index =__builtin_clzll(copies[14]);
+            index =__builtin_ctzll(copies[14]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[14];
@@ -232,7 +232,7 @@ bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, un
     if(!(copies[15] & knight_down_down_right_move_mask)){
         copies[15] >>= 17;
         if (copies[15] & enemy_mask){
-            index =__builtin_clzll(copies[15]);
+            index =__builtin_ctzll(copies[15]);
             if (board[index] != nullptr){
                 if (board[index] -> identifier == 3){
                     king_checking_figures |= copies[15];

@@ -20,121 +20,122 @@ void print_bitboard(std::string board){
     }
     std::cout << std::endl;
 }
-/*
-is_checked(Figure** board, unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color)
-*/
 
-/*
-0 1 2 3 4 5 6 7
-8 ...
-*/
 int main(){
     Engine engine;
-    Board someobj;
-    Figure** board = new Figure*[64];
+
     int check_var;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new Pawn(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new Pawn(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new Rook(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new Rook(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new Knight(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new Knight(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new Bishop(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new Bishop(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new King(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new King(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[0] = new Queen(0x8000000000000000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[56] = new Queen(0x100000000000000ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl; 
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[49] = new Bishop(0x4000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[9] = new Bishop(0x200ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[49] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[49] -> mask, 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        board[i] = nullptr;
+        engine.board[i] = nullptr;
     }
-    board[50] = new Knight(0x2000ULL, -1);
-    board[56] = new King(0x80ULL, 1);
+    engine.board[10] = new Knight(0x400ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
 
-    someobj.print_board(board);
+    engine.print_board();
 
-    check_var = engine.is_checked(board, board[56] -> mask, 0, board[50] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[50] -> mask, 1);
     std::cout << check_var << std::endl;
 
+    std::cout << "-------------------------------" << std::endl;
     for (int i = 0; i < 64; i++){
-        delete board[i];
+        engine.board[i] = nullptr;
     }
-    delete board;
-    
+    engine.board[1] = new Pawn(0x2ULL, 1);
+    engine.board[8] = new Pawn(0x100ULL, 1);
+    engine.board[10] = new Knight(0x400ULL, -1);
+    engine.board[0] = new King(0x1ULL, 1);
+    engine.board[9] = new Pawn(0x200ULL, 1);
+
+    engine.print_board();
+
+    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[50] -> mask, 1);
+    std::cout << check_var << std::endl;
 
     return 0;
 }

@@ -10,7 +10,7 @@ unsigned long long* Engine::all_available_moves(int color){
             all_available_moves[i] = 0;
 
         }else{
-            if(board[i] -> color == color){
+            if(board[i] -> color == color && board[i] != nullptr){
                 all_available_moves[i] = show_available_moves(board[i], color);
             }
         }
@@ -22,7 +22,6 @@ unsigned long long Engine::show_available_moves(Figure* figure, int color){
 
     unsigned long long king_mask = get_king_mask(color);
     unsigned long long available_moves;
-
     switch (figure -> identifier)
     {
     case 1:
@@ -34,9 +33,7 @@ unsigned long long Engine::show_available_moves(Figure* figure, int color){
         break;
     case 2:
         if (figure -> color == 1){
-            std::cout << "vert:\n";
             available_moves = available_vertical_moves(0, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            std::cout << "hor:\n";
             available_moves = available_horizontal_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
         }else{
             available_moves = available_vertical_moves(0, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
@@ -122,9 +119,6 @@ double Engine::get_additional_move_value(int index, int piece_type, int piece_co
             additional_value += black_king_mask[index];
         }
     }
-
-    
-
 
     return additional_value;
 }

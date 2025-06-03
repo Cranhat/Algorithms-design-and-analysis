@@ -14,7 +14,7 @@ struct Figure{
     Figure(std::string type, int identifier, int cost, unsigned long long mask, int color)
     : type(type), identifier(identifier), cost(cost), mask(mask), color(color) {}
 
-
+    virtual Figure* clone() const = 0; 
 };
 
 struct Pawn : public Figure{
@@ -25,6 +25,10 @@ struct Pawn : public Figure{
     }
 
     ~Pawn() override {}
+
+    Figure* clone() const override {
+        return new Pawn(*this);
+    }
 };
 
 struct Rook : public Figure{
@@ -34,6 +38,10 @@ struct Rook : public Figure{
         this -> color = color;
     }
     ~Rook() override {}
+
+    Figure* clone() const override {
+        return new Rook(*this);
+    }
 };
 
 struct Knight : public Figure{
@@ -44,6 +52,9 @@ struct Knight : public Figure{
     }
     ~Knight() override {}
 
+    Figure* clone() const override {
+        return new Knight(*this);
+    }
 };
 
 struct Bishop : public Figure{
@@ -54,6 +65,10 @@ struct Bishop : public Figure{
     }  
 
     ~Bishop() override {}
+
+    Figure* clone() const override {
+        return new Bishop(*this);
+    }
 
 };
 
@@ -66,6 +81,10 @@ struct Queen : public Figure{
 
     ~Queen() override {}
 
+    Figure* clone() const override {
+        return new Queen(*this);
+    }
+
 };
 
 struct King : public Figure{
@@ -76,5 +95,11 @@ struct King : public Figure{
     }  
 
     ~King() override {}
+
+    Figure* clone() const override {
+        return new King(*this);
+    }
+
+
 
 };
