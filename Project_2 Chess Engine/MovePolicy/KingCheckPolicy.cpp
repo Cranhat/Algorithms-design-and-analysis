@@ -13,7 +13,7 @@ bool KingCheckPolicy::is_terminal(Figure** board, unsigned long long king_mask, 
     return false;
 }
 
-bool KingCheckPolicy::is_checked(Figure** board,unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
+bool KingCheckPolicy::is_checked(Figure** board, unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color){
     unsigned long long king_checking_figures = 0;
     int scope = 8;
     int index;

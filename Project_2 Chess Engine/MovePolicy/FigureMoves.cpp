@@ -24,7 +24,8 @@ void FigureMoves::move(int old_index, int new_index){
 }
 
 bool FigureMoves::simulate_and_check(int old_index, int new_index, int color){
-    std::cout << "------------------" << std::endl;
+    unsigned long long king_mask = 0;
+    // std::cout << "------------------" << std::endl;
     Figure** temp_board = new Figure*[64];
     for (int i = 0; i < 64; ++i) {
         temp_board[i] = this->board[i] ? this->board[i]->clone() : nullptr;
@@ -34,28 +35,34 @@ bool FigureMoves::simulate_and_check(int old_index, int new_index, int color){
     temp_board[new_index] -> mask = calculate_new_mask(new_index);
     temp_board[old_index] = nullptr;
 
-    print_board(temp_board);
-    std::cout << "old index: " << old_index << "new_index: " << new_index << std::endl;
-    std::cout << "white mask: " << std::endl;
-    print_bitboardd(white_mask(temp_board));
-    std::cout << "black mask: " << std::endl;
-    print_bitboardd(black_mask(temp_board));
-    std:: cout << "new mask:" << std::endl;
-    print_bitboardd(calculate_new_mask(new_index));
+    // print_board(temp_board);
+    // std::cout << "old index: " << old_index << "new_index: " << new_index << std::endl;
+    // std::cout << "white mask: " << std::endl;
+    // print_bitboardd(white_mask(temp_board));
+    // std::cout << "black mask: " << std::endl;
+    // print_bitboardd(black_mask(temp_board));
+    // std::cout << "------------------" << std::endl;
+
+    for (int i = 0; i < 64; ++i) {
+        if (temp_board[i] != nullptr && temp_board[i] -> identifier == 5 && temp_board[i] -> color == color){
+            king_mask = temp_board[i] -> mask;
+        }
+    }
 
     if (color == 1){
-        if (is_checked(temp_board, white_king_pointer -> mask, white_mask(temp_board), black_mask(temp_board), color)){
-            std::cout << "SOMEHOW CHECKED!\n";
+        if (is_checked(temp_board, king_mask, white_mask(temp_board), black_mask(temp_board), color)){
+            // std::cout << "checked, indexes = " << old_index << "," << new_index << std::endl;
+            // std::cout << "------------------" << std::endl;
             delete[] temp_board;
             return 1;
         }
     }else if(color == -1){
-        if (is_checked(temp_board, black_king_pointer -> mask, black_mask(temp_board), white_mask(temp_board), color)){
+        if (is_checked(temp_board, king_mask, black_mask(temp_board), white_mask(temp_board), color)){
             delete[] temp_board;
             return 1;
         }
     }
-    std::cout << "------------------" << std::endl;
+
     delete[] temp_board;
     return 0;
 }
@@ -67,12 +74,12 @@ unsigned long long FigureMoves::available_horizontal_moves(unsigned long long mo
     old_index = __builtin_ctzll(figure_mask);
     while(counter++ < scope && !(figure_mask & left_move_mask)){
         figure_mask <<= 1;
+        if (figure_mask & teammate_mask){
+            break;
+        }
         new_index = __builtin_ctzll(figure_mask);
         if (simulate_and_check(old_index, new_index, color)){
             continue;
-        }
-        if (figure_mask & teammate_mask){
-            break;
         }
         moves_available |= figure_mask;
         if (figure_mask & enemy_mask){
@@ -84,12 +91,12 @@ unsigned long long FigureMoves::available_horizontal_moves(unsigned long long mo
     old_index = __builtin_ctzll(second_figure_mask);
     while(counter++ < scope && !(second_figure_mask & right_move_mask)){
         second_figure_mask >>= 1;
+        if (second_figure_mask & teammate_mask){
+            break;
+        }
         new_index = __builtin_ctzll(second_figure_mask);
         if (simulate_and_check(old_index, new_index, color)){
             continue;
-        }
-        if (second_figure_mask & teammate_mask){
-            break;
         }
         moves_available |= second_figure_mask;
         if (second_figure_mask & enemy_mask){

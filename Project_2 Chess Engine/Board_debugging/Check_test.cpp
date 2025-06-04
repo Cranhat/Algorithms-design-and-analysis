@@ -35,7 +35,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask,engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -47,7 +47,20 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
+    std::cout << check_var << std::endl;
+
+    std::cout << "-------------------------------" << std::endl;
+    for (int i = 0; i < 64; i++){
+        engine.board[i] = nullptr;
+    }
+    engine.board[56] = new Rook(0x100000000000000ULL, -1);
+    engine.board[8] = new Pawn(0x100ULL, 1);
+    engine.board[0] = new King(0x1ULL, 1);
+
+    engine.print_board();
+
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -59,7 +72,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -71,7 +84,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -83,7 +96,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -95,7 +108,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[0] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask,engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl; 
@@ -107,7 +120,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[49] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -119,7 +132,7 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[50] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
 
     std::cout << "-------------------------------" << std::endl;
@@ -134,8 +147,8 @@ int main(){
 
     engine.print_board();
 
-    check_var = engine.is_checked(engine.board, engine.board[56] -> mask, 0, engine.board[50] -> mask, 1);
+    check_var = engine.is_checked(engine.board, engine.board[0] -> mask, engine.white_mask(), engine.black_mask(), 1);
     std::cout << check_var << std::endl;
-
+    std::cout << "end\n";
     return 0;
 }
