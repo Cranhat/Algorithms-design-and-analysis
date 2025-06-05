@@ -23,7 +23,41 @@ void FigureMoves::move(int old_index, int new_index){
     this -> board[new_index] -> mask = calculate_new_mask(new_index);
 }
 
-bool FigureMoves::simulate_and_check(int old_index, int new_index, int color){
+
+double FigureMoves::get_additional_move_value(int index, int piece_type, int piece_color){
+    float additional_value = 0;
+
+    additional_value += center_pieces_mask[index];
+
+    if (piece_color == 1){
+        if (piece_type == 5){
+            additional_value += white_king_mask[index];
+        }
+    }
+
+    if (piece_color == -1){
+        if (piece_type == 5){
+            additional_value += black_king_mask[index];
+        }
+    }
+
+    return additional_value;
+}
+
+double FigureMoves::evaluate_position(){
+    double sum = 0;
+    for(int i = 0; i < 64; i++){
+        if (board[i] != nullptr){
+        
+            sum += ((board[i] -> cost) + get_additional_move_value(__builtin_ctzll(board[i] -> mask), board[i] -> identifier, board[i] -> color)) * (board[i] -> color);
+
+        }
+    }
+    return sum;
+}
+
+bool FigureMoves::simulate_and_check(int old_index, int new_index, int color, double* eval_ptr){
+    double eval;
     unsigned long long king_mask = 0;
     // std::cout << "------------------" << std::endl;
     Figure** temp_board = new Figure*[64];
@@ -48,11 +82,13 @@ bool FigureMoves::simulate_and_check(int old_index, int new_index, int color){
             king_mask = temp_board[i] -> mask;
         }
     }
-
+    *eval_ptr = evaluate_position();
     if (color == 1){
         if (is_checked(temp_board, king_mask, white_mask(temp_board), black_mask(temp_board), color)){
             // std::cout << "checked, indexes = " << old_index << "," << new_index << std::endl;
             // std::cout << "------------------" << std::endl;
+
+            
             delete[] temp_board;
             return 1;
         }

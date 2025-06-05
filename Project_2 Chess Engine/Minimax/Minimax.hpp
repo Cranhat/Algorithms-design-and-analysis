@@ -1,6 +1,10 @@
 #pragma once
+#include "../Engine/Engine.hpp"
+#include <vector>
 
-class Minimax{
+class Minimax : public Engine{
     public:
-    void minimax(int position, int depth, int maximizing_player);
+    double minimax(Figure** board, int depth, int maximizing_player);
+    std::vector<int> piece_moves_index_available(unsigned int bitmask);   
 };
+
