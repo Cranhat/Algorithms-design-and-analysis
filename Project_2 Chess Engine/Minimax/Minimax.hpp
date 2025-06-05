@@ -1,6 +1,8 @@
 #pragma once
+#include "../Engine/Engine.hpp"
 
-class Minimax{
+class Minimax : public Engine{
     public:
-    void minimax(int position, int depth, int maximizing_player);
+    double minimax(Figure** board, int depth, int maximizing_player);
+
 };

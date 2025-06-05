@@ -26,11 +26,11 @@ int main(){
 
     engine.Board::print_board();
 
-    // std:: cout << engine.evaluate_position();
+    std:: cout << "pos eval" << engine.evaluate_position();
 
     unsigned long long* aam = new unsigned long long[64];
 
-    aam = engine.all_available_moves(-1);
+    aam = engine.all_available_moves(1);
 
 
     

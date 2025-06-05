@@ -2,8 +2,8 @@
 #include <iostream>
 
 unsigned long long* Engine::all_available_moves(int color){
-
-    unsigned long long* all_available_moves = (unsigned long long*) malloc(sizeof(unsigned long long) * 64);
+    unsigned long long* all_available_moves = new unsigned long long[64];
+    // unsigned long long* all_available_moves = (unsigned long long*) malloc(sizeof(unsigned long long) * 64);
 
     for(int i = 0; i < 64; i++){
         if (board[i] == nullptr){
@@ -90,8 +90,8 @@ unsigned long long Engine::show_available_moves(Figure* figure, int color){
     return available_moves;
 }
 
-float Engine::evaluate_position(){
-    float sum = 0;
+double Engine::evaluate_position(){
+    double sum = 0;
     for(int i = 0; i < 64; i++){
         if (board[i] != nullptr){
         
