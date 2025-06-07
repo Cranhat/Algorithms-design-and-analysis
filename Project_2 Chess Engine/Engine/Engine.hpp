@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Masks.hpp"
 #include "../MovePolicy/MovePolicy.hpp"
 #include "../Pieces/Pieces.hpp"
 #include "../Board/Board.hpp"
@@ -12,12 +11,9 @@ class Engine : public MovePolicy{
     
     public:
 
-    unsigned long long* all_available_moves(int color);
+    std::vector<std::vector<int>> all_available_moves(Figure** board, int color);
 
-    unsigned long long show_available_moves(Figure* figure, int color);
+    std::vector<int> show_available_moves(Figure** board, Figure* figure, int color);
 
-    double evaluate_position();
-
-    double get_additional_move_value(int index, int piece_type, int piecie_color);
 
 };

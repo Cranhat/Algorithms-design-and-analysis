@@ -48,7 +48,7 @@ class KingCheckPolicy{
     unsigned long long knight_down_left_left_move_mask = h | g | one;
     unsigned long long knight_down_down_left_move_mask = h | one | two;
     
-    bool is_terminal(Figure** board, unsigned long long king_mask, unsigned long long available_king_moves, unsigned long long teammate_mask, unsigned long long enemy_mask, int color);
+    // bool is_terminal(Figure** board, unsigned long long king_mask, unsigned long long available_king_moves, unsigned long long teammate_mask, unsigned long long enemy_mask, int color);
 
     bool is_checked(Figure** board, unsigned long long king_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, int color);
 };

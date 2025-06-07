@@ -1,124 +1,98 @@
 #include "Engine.hpp"
 #include <iostream>
+#include <vector>
 
-unsigned long long* Engine::all_available_moves(int color){
-    unsigned long long* all_available_moves = new unsigned long long[64];
-    // unsigned long long* all_available_moves = (unsigned long long*) malloc(sizeof(unsigned long long) * 64);
 
+
+std::vector<std::vector<int>> Engine::all_available_moves(Figure** board, int color){
+    std::vector<std::vector<int>> available_moves(64);
+    // std::cout << "color = " << color << std::endl;
+    // print_board(board);
     for(int i = 0; i < 64; i++){
         if (board[i] == nullptr){
-            all_available_moves[i] = 0;
-
+            continue;
         }else{
             if(board[i] -> color == color && board[i] != nullptr){
-                all_available_moves[i] = show_available_moves(board[i], color);
+                std::vector<int> moves = show_available_moves(board, board[i], color);
+                available_moves[i] = moves;
             }
         }
     }
-    return all_available_moves;
+
+    return available_moves;
 }
 
-unsigned long long Engine::show_available_moves(Figure* figure, int color){
-
+std::vector<int> Engine::show_available_moves(Figure** board, Figure* figure, int color){
+    std::vector<int> available_moves_eval;
     unsigned long long king_mask = get_king_mask(color);
-    unsigned long long available_moves;
+
     switch (figure -> identifier)
     {
     case 1:
         if (figure -> color == 1){
-            available_moves = available_up_moves(0, 1, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            available_up_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
         }else{
-            available_moves = available_down_moves(0, 1, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_down_moves(board, available_moves_eval, 1, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         }
         break;
     case 2:
         if (figure -> color == 1){
-            available_moves = available_vertical_moves(0, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_horizontal_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
         }else{
-            available_moves = available_vertical_moves(0, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_horizontal_moves(available_moves, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         }
         break;
     case 3:
         if (figure -> color == 1){
-            available_moves = available_knight_moves(0, 0, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            available_knight_moves(board, available_moves_eval, 0, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
         }else{
-            available_moves = available_knight_moves(0, 0, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_knight_moves(board, available_moves_eval, 0, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         } 
         break;
     case 4:
         if (figure -> color == 1){
-            available_moves = available_diagonal_up_moves(0, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            available_diagonal_up_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_diagonal_down_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
         }else{
-            available_moves = available_diagonal_up_moves(0, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_diagonal_up_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_diagonal_down_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         }
         break;
     case 5:
         if (figure -> color == 1){
-            available_moves = available_horizontal_moves(0, 1, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_diagonal_up_moves(available_moves, 1, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 1, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_vertical_moves(available_moves, 1, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_diagonal_up_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_diagonal_down_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             
         }else{
-            available_moves = available_diagonal_up_moves(0, 1, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 1, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_vertical_moves(available_moves, 1, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_horizontal_moves(available_moves, 1, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_diagonal_up_moves(board, available_moves_eval, 1, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_diagonal_down_moves(board, available_moves_eval, 1, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 1, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 1, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         }
         break;
     case 6:
         if (figure -> color == 1){
-            available_moves = available_diagonal_up_moves(0, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_vertical_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
-            available_moves = available_horizontal_moves(available_moves, 8, figure -> mask, white_mask(), black_mask(), king_mask, color);
+            std::cout << "v\n";
+            available_diagonal_up_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            std::cout << "v\n";
+            available_diagonal_down_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
         }else{
-            available_moves = available_diagonal_up_moves(0, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_diagonal_down_moves(available_moves, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_vertical_moves(available_moves, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
-            available_moves = available_horizontal_moves(available_moves, 8, figure -> mask, black_mask(), white_mask(), king_mask, color);
+            available_diagonal_up_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_diagonal_down_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_vertical_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
+            available_horizontal_moves(board, available_moves_eval, 8, figure -> mask, black_mask(board), white_mask(board), king_mask, color);
         }
         break;
     default: 
 
         break;
     }
-    return available_moves;
+    return available_moves_eval;
 }
 
-double Engine::evaluate_position(){
-    double sum = 0;
-    for(int i = 0; i < 64; i++){
-        if (board[i] != nullptr){
-        
-            sum += ((board[i] -> cost) + get_additional_move_value(__builtin_ctzll(board[i] -> mask), board[i] -> identifier, board[i] -> color)) * (board[i] -> color);
-
-        }
-    }
-    return sum;
-}
-
-
-double Engine::get_additional_move_value(int index, int piece_type, int piece_color){
-    float additional_value = 0;
-
-    additional_value += center_pieces_mask[index];
-
-    if (piece_color == 1){
-        if (piece_type == 5){
-            additional_value += white_king_mask[index];
-        }
-    }
-
-    if (piece_color == -1){
-        if (piece_type == 5){
-            additional_value += black_king_mask[index];
-        }
-    }
-
-    return additional_value;
-}

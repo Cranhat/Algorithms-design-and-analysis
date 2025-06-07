@@ -26,23 +26,32 @@ int main(){
 
     engine.Board::print_board();
 
-    std:: cout << "pos eval" << engine.evaluate_position();
+    std:: cout << "pos eval" << engine.evaluate_position(engine.board) << std::endl;
 
-    unsigned long long* aam = new unsigned long long[64];
+    std::vector<std::vector<int>> all_available_moves = engine.all_available_moves(engine.board, 1);
 
-    aam = engine.all_available_moves(1);
+    // std::vector<int> some_moves = engine.show_available_moves(engine.board, engine.board[62], -1);
 
+    // std::cout << "--------------------------------------\n";
+    // for(int i = 0; i < some_moves.size(); i++){
+    //     std::cout << "moves for index " << i << "=" << some_moves[i]<< std::endl;
+    // }
+    // std::cout << "--------------------------------------\n";
+    // std::cout << "end\n";
 
     
     std::cout << "--------------------------------------\n";
     for(int i = 0; i < 64; i++){
-        std::cout << "mask with index: " << i << std::endl << aam[i] << std::endl;
-        print_bitboard(aam[i]);
+
+        for(int j = 0; j < all_available_moves[i].size(); j++){
+            std::cout << i << ":" << all_available_moves[i][j] << std::endl;
+        }
     }
+
     std::cout << "--------------------------------------\n";
     std::cout << "end\n";
 
-    delete[] aam;
+    
     return 0;
 }
 
