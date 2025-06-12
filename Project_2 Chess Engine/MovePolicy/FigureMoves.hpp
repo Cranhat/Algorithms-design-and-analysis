@@ -37,4 +37,8 @@ class FigureMoves : public KingCheckPolicy, public Board{
     Figure* findKing(Figure** board, int color);
 
     Figure** cloneBoard(Figure** board);
+
+    bool is_terminal(Figure** board, int color);
+
+    void deleteBoard(Figure** board);
 };

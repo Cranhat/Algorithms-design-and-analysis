@@ -3,22 +3,13 @@
 #include <vector>
 
 
-
-std::vector<std::vector<int>> Engine::all_available_moves(Figure** board, int color){
+std::vector<std::vector<int>> Engine::all_available_moves(Figure** board, int color) {
     std::vector<std::vector<int>> available_moves(64);
-    // std::cout << "color = " << color << std::endl;
-    // print_board(board);
-    for(int i = 0; i < 64; i++){
-        if (board[i] == nullptr){
-            continue;
-        }else{
-            if(board[i] -> color == color && board[i] != nullptr){
-                std::vector<int> moves = show_available_moves(board, board[i], color);
-                available_moves[i] = moves;
-            }
+    for(int i = 0; i < 64; i++) {
+        if (board[i] != nullptr && board[i]->color == color) {
+            available_moves[i] = show_available_moves(board, board[i], color);
         }
     }
-
     return available_moves;
 }
 
@@ -76,9 +67,7 @@ std::vector<int> Engine::show_available_moves(Figure** board, Figure* figure, in
         break;
     case 6:
         if (figure -> color == 1){
-            std::cout << "v\n";
             available_diagonal_up_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
-            std::cout << "v\n";
             available_diagonal_down_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             available_vertical_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             available_horizontal_moves(board, available_moves_eval, 8, figure -> mask, white_mask(board), black_mask(board), king_mask, color);

@@ -28,30 +28,22 @@ int main(){
     
     std::cout << "Test1:\n";
     std::cout << "-------------------------------" << std::endl;
-    // for (int i = 0; i < 64; i++){
-    //     engine.board[i] = nullptr;
-    // }
-    // engine.board[0] = new King(0x1ULL, 1);
-    // engine.board[8] = new Rook(0x100ULL, 1);
+    for (int i = 0; i < 64; i++){
+        engine.board[i] = nullptr;
+    }
+    engine.board[0] = new King(0x1ULL, 1);
+    engine.board[8] = new Rook(0x100ULL, 1);
 
-    // engine.board[63] = new King(0x8000000000000000ULL, -1);
-    // engine.board[56] = new Rook(0x100000000000000ULL, -1);
+    engine.board[63] = new King(0x8000000000000000ULL, -1);
+    engine.board[56] = new Rook(0x100000000000000ULL, -1);
 
     engine.print_board();
 
-   
-    // std::vector<std::vector<int>> all_available_moves = engine.all_available_moves(engine.board, -1);
+    // engine.minimax(engine.board, 3, 1);
+    // Figure** board, int depth, int maximizing_player)
+    std::pair<int, int> best_move_in_position = engine.get_best_move(engine.board, 5, 1);
 
-    std::cout << "--------------------------------------\n";
-    // for(int i = 0; i < 64; i++){
-    //     for(int j = 0; j < all_available_moves[i].size(); j++){
-    //         std::cout << "i = " << i << " j = " << j << " available moves: " << all_available_moves[i][j] << std::endl;
-    //     }
-    // }
-    engine.minimax(engine.board, 4, 1);
-    std::cout << "--------------------------------------\n";
-    std::cout << "end\n";
-
+    std::cout << "best move is from: " << best_move_in_position.first << " to: " << best_move_in_position.second  << std::endl;
 
     return 0;
 }
