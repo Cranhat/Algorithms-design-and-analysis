@@ -20,7 +20,6 @@ void print_bitboard(unsigned long long bitmask){
     }
     std::cout << std::endl;
 }
-
 int main(){
     Engine engine;
 

@@ -60,7 +60,7 @@ int main(){
         // best_move_in_position = engine.get_best_move(engine.board, 3, 1);
         // engine.move(best_move_in_position.first, best_move_in_position.second);
 
-        best_move_in_position = engine.get_best_move(engine.board, 3, -1);
+        best_move_in_position = engine.get_best_move(engine.board, 4, -1);
         engine.move(best_move_in_position.first, best_move_in_position.second);
 
         engine.print_board();
