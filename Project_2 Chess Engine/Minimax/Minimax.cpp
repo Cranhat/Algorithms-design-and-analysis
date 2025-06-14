@@ -10,7 +10,7 @@ void print_moves(std::vector<std::vector<int>> moves){
     
 }
 
-double Minimax::minimax(Figure** board, int depth, int maximizing_player){
+double Minimax::minimax(Figure** board, int depth, int maximizing_player, double alpha, double beta){
     double eval;
     if (depth == 0 || is_terminal(board, maximizing_player)){
         return evaluate_position(board);
@@ -18,16 +18,19 @@ double Minimax::minimax(Figure** board, int depth, int maximizing_player){
     if (maximizing_player == 1){            
         double maxEval = -std::numeric_limits<double>::infinity();
         std::vector<std::vector<int>> aam = all_available_moves(board, 1);
-        // std::cout << "for white:\n";
-        // print_board(board);
-        // print_moves(aam);
+
         for (int i = 0; i < 64; i++){
             if (board[i] != nullptr){
                 for(int j = 0; j < (int) aam[i].size(); j++){
                     Figure** temp_board = cloneBoard(board);
-                    move(temp_board, i, aam[i][j]);
-                    eval = minimax(temp_board, depth - 1, -1);
+                    move(temp_board, i, aam[i][j], maximizing_player);
+                    eval = minimax(temp_board, depth - 1, -1, alpha, beta);
+                    alpha = std::max(alpha, eval);
                     maxEval = std::max(maxEval, eval);
+                    if (beta <= alpha){
+                        deleteBoard(temp_board);
+                        break;
+                    }
                     deleteBoard(temp_board);
                 }
             }
@@ -36,16 +39,18 @@ double Minimax::minimax(Figure** board, int depth, int maximizing_player){
     }else{
         double minEval = std::numeric_limits<double>::infinity();
         std::vector<std::vector<int>> aam = all_available_moves(board, -1);
-        // std::cout << "for black:\n";
-        // print_board(board);
-        // print_moves(aam);
         for (int i = 0; i < 64; i++){
             if (board[i] != nullptr){
                 for(int j = 0; j < (int) aam[i].size(); j++){
                     Figure** temp_board = cloneBoard(board);
-                    move(temp_board, i, aam[i][j]);
-                    eval = minimax(temp_board, depth - 1, 1);
+                    move(temp_board, i, aam[i][j], maximizing_player);
+                    eval = minimax(temp_board, depth - 1, 1, alpha, beta);
+                    beta = std::min(beta, eval);
                     minEval = std::min(minEval, eval);
+                    if (beta <= alpha){
+                        deleteBoard(temp_board);
+                        break;
+                    }
                     deleteBoard(temp_board);
                 }
             }
@@ -64,8 +69,8 @@ std::pair<int, int> Minimax::get_best_move(Figure** board, int depth, int maximi
         for (int j = 0; j < (int)aam[i].size(); j++) {
             if (board[i] != nullptr) {
                 Figure** temp_board = cloneBoard(board);
-                move(temp_board, i, aam[i][j]);
-                double eval = minimax(temp_board, depth - 1, -maximizing_player);
+                move(temp_board, i, aam[i][j], maximizing_player);
+                double eval = minimax(temp_board, depth - 1, -maximizing_player, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
 
                 if ((maximizing_player == 1 && eval > bestEval) ||
                     (maximizing_player == -1 && eval < bestEval)) {

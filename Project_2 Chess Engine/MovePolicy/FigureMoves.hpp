@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
 #include "KingCheckPolicy.hpp"
+#include "SpecialMoves.hpp"
 #include "../Board/Board.hpp"
 #include "Masks.hpp"
 
-class FigureMoves : public KingCheckPolicy, public Board{    
-
+class FigureMoves : public KingCheckPolicy, public Board {
     public:
 
     void available_horizontal_moves(Figure** bord, std::vector<int> &available_moves_eval, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color);
@@ -26,9 +26,9 @@ class FigureMoves : public KingCheckPolicy, public Board{
 
     unsigned long long calculate_new_mask(int new_index);
 
-    void move(int old_index, int new_index);
+    void move(int old_index, int new_index, int color);
 
-    void move(Figure** board, int old_index, int new_index);
+    void move(Figure** board, int old_index, int new_index, int color);
 
     double evaluate_position(Figure** board);
 

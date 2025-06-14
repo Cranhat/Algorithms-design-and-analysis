@@ -116,17 +116,13 @@ void handleMouseClick(int mouseX, int mouseY) {
     int new_idx = (7 - selectedY) * 8 + (7 - selectedX);
 
     if(std::find(selected_tiles.begin(), selected_tiles.end(), new_idx) != selected_tiles.end()){
-        board.move(old_idx, new_idx);
+        board.move(old_idx, new_idx, 1);
         turn *= -1;
         return;
+    }else if(board.board[new_idx] != nullptr){
+        old_idx = (7 - selectedY) * 8 + (7 - selectedX);
+        selected_tiles = board.show_available_moves(board.board, board.board[old_idx], 1);
     }
-
-    old_idx = (7 - selectedY) * 8 + (7 - selectedX);
-    
-    selected_tiles = board.show_available_moves(board.board, board.board[old_idx], 1);
-
-    std::cout << "Kliknięto pole: " << selectedX << "," << selectedY << " (idx=" << old_idx << ")\n";
-
 
 }
 
@@ -161,7 +157,7 @@ int main(int argc, char* argv[]) {
                 }
             }else if(turn == -1){
                 std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 3, -1);
-                board.move(best_opponent_move.first, best_opponent_move.second);
+                board.move(best_opponent_move.first, best_opponent_move.second, -1);
                 turn *= -1;
             }
 

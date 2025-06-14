@@ -53,6 +53,7 @@ std::vector<int> Engine::show_available_moves(Figure** board, Figure* figure, in
         break;
     case 5:
         if (figure -> color == 1){
+            is_castle_available(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             available_horizontal_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             available_diagonal_up_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);
             available_diagonal_down_moves(board, available_moves_eval, 1, figure -> mask, white_mask(board), black_mask(board), king_mask, color);

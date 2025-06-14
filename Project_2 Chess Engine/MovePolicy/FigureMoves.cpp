@@ -20,10 +20,18 @@ unsigned long long FigureMoves::calculate_new_mask(int index) {
     return 1ULL << index;
 }
 
-void FigureMoves::move(int old_index, int new_index){
-    this -> board[new_index] = this ->board[old_index];
-    this -> board[old_index] = nullptr;
-    this -> board[new_index] -> mask = calculate_new_mask(new_index);
+void FigureMoves::move(int old_index, int new_index, int color){
+    if (this -> board[old_index] != nullptr){
+        if (((int) new_index / 8 == 7 || new_index / 8 == 0) && this -> board[old_index] -> identifier == 1){
+            delete board[old_index];
+            this -> board[old_index] = nullptr;
+            this -> board[new_index] = new Queen(calculate_new_mask(new_index), color);
+        }else{
+            this -> board[new_index] = this ->board[old_index];
+            this -> board[old_index] = nullptr;
+            this -> board[new_index] -> mask = calculate_new_mask(new_index);
+        }
+    }
 }
 
 bool FigureMoves::is_terminal(Figure** board, int color){
@@ -33,11 +41,20 @@ bool FigureMoves::is_terminal(Figure** board, int color){
     return true;
 }
 
-void FigureMoves::move(Figure** board, int old_index, int new_index){
+void FigureMoves::move(Figure** board, int old_index, int new_index, int color){
+
     if (board[old_index] != nullptr){
-        board[new_index] = board[old_index];
-        board[old_index] = nullptr;
-        board[new_index] -> mask = calculate_new_mask(new_index);
+        if (((int) new_index / 8 == 7 || new_index / 8 == 0) && board[old_index] -> identifier == 1){
+            board[old_index] = nullptr;
+            board[new_index] = new Queen(calculate_new_mask(new_index), color);
+        }else{
+            board[new_index] = board[old_index];
+            board[old_index] = nullptr;
+            board[new_index] -> mask = calculate_new_mask(new_index);
+        }
+
+
+
     }
     else{
         // std::cout << "---------------------------------\n";
@@ -78,7 +95,7 @@ bool FigureMoves::simulate_and_check(Figure** board, std::vector<int> &available
     unsigned long long king_mask = 0;
     Figure** temp_board = cloneBoard(board);
 
-    move(temp_board, old_index, new_index);
+    move(temp_board, old_index, new_index, color);
 
     king_mask = findKing(temp_board, color) -> mask;
     if (color == 1){
@@ -188,6 +205,7 @@ void FigureMoves::available_down_moves(Figure** board, std::vector<int> &availab
     }
     unsigned long long second_figure_mask = figure_mask;
     unsigned long long third_figure_mask = figure_mask;
+    unsigned long long fourth_figure_mask = figure_mask;
     int counter = 0, new_index;
     int old_index = __builtin_ctzll(figure_mask);
     while(counter++ < scope && !(figure_mask & down_move_mask)){
@@ -200,20 +218,24 @@ void FigureMoves::available_down_moves(Figure** board, std::vector<int> &availab
         continue;
         }
     }
-    second_figure_mask >>= 7;
     if (!(second_figure_mask & diagonal_left_down_move_mask)){
+        second_figure_mask >>= 7;
         if(second_figure_mask & enemy_mask){
             new_index = __builtin_ctzll(second_figure_mask);
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
-    third_figure_mask >>= 9;
     if (!(third_figure_mask & diagonal_right_down_move_mask)){
+        third_figure_mask >>= 9;
         if(third_figure_mask & enemy_mask){
             new_index = __builtin_ctzll(third_figure_mask);
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
+    // if ((int) ((__builtin_ctzll(figure_mask)) / 8) == 0){
+    //     delete board[old_index];
+    //     board[old_index] = new Queen(fourth_figure_mask, color);
+    // }
 }
 
 void FigureMoves::available_up_moves(Figure** board, std::vector<int> &available_moves_eval, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color){
@@ -222,6 +244,7 @@ void FigureMoves::available_up_moves(Figure** board, std::vector<int> &available
     }
     unsigned long long second_figure_mask = figure_mask;
     unsigned long long third_figure_mask = figure_mask;
+    unsigned long long fourth_figure_mask = figure_mask;
     int counter = 0;
     int old_index = __builtin_ctzll(figure_mask);
     int new_index;
@@ -235,20 +258,26 @@ void FigureMoves::available_up_moves(Figure** board, std::vector<int> &available
         continue;
         }
     }
-    second_figure_mask <<= 9;
+    
     if (!(second_figure_mask & diagonal_left_up_move_mask)){
+        second_figure_mask <<= 9;
         if(second_figure_mask & enemy_mask){
             new_index = __builtin_ctzll(second_figure_mask);
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
-    third_figure_mask <<= 7;
+    
     if (!(third_figure_mask & diagonal_right_up_move_mask)){
+        third_figure_mask <<= 7;
         if(third_figure_mask & enemy_mask){
             new_index = __builtin_ctzll(third_figure_mask);
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
+    // if ((int) ((__builtin_ctzll(figure_mask)) / 8) == 7){
+    //     delete board[old_index];
+    //     board[old_index] = new Queen(fourth_figure_mask, color);
+    // }
 }
 
 void FigureMoves::available_vertical_moves(Figure** board, std::vector<int> &available_moves_eval, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color){
