@@ -28,6 +28,7 @@ int selectedX = -1;
 int selectedY = -1;
 int old_idx = 0;
 
+int playing_side = -1;
 int turn = 1;
 
 SDL_Window* window = nullptr;
@@ -51,11 +52,11 @@ bool loadTextures() {
     return true;
 }
 
-std::string get_piece_texture_key(Figure* fig) {
-    if (!fig) return "";
+std::string get_piece_texture_key(Figure* figure) {
+    if (!figure) return "";
 
-    int type = fig->identifier;   // np. 1 dla pionka
-    int color = fig->color; // 1 (biały), -1 (czarny)
+    int type = figure->identifier;  
+    int color = figure->color; 
 
     char code = 'x';
     switch (type) {
@@ -76,6 +77,9 @@ void drawBoard() {
     for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
             int idx = (7 - y) * 8 + (7 - x);
+            if (playing_side == -1){
+                idx = 63 - idx;
+            }
             SDL_Rect tile = {x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE};
             bool isWhite = (x + y) % 2 == 0;
             
@@ -114,14 +118,20 @@ void handleMouseClick(int mouseX, int mouseY) {
     selectedY = mouseY / TILE_SIZE;
 
     int new_idx = (7 - selectedY) * 8 + (7 - selectedX);
+    if (playing_side == -1){
+        new_idx = 63 - new_idx;
+    }
 
     if(std::find(selected_tiles.begin(), selected_tiles.end(), new_idx) != selected_tiles.end()){
-        board.move(old_idx, new_idx, 1);
+        board.move(old_idx, new_idx, playing_side);
         turn *= -1;
         return;
     }else if(board.board[new_idx] != nullptr){
         old_idx = (7 - selectedY) * 8 + (7 - selectedX);
-        selected_tiles = board.show_available_moves(board.board, board.board[old_idx], 1);
+        if (playing_side == -1){
+            old_idx = 63 - old_idx;
+        }
+        selected_tiles = board.show_available_moves(board.board, board.board[old_idx], playing_side);
     }
 
 }
@@ -143,7 +153,11 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event e;
 
+
     while (running) {
+        if (playing_side == 1){
+
+        }
         while (SDL_PollEvent(&e)) {
             if (turn == 1){
                 if (e.type == SDL_QUIT)
@@ -156,8 +170,9 @@ int main(int argc, char* argv[]) {
                     }
                 }
             }else if(turn == -1){
-                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 3, -1);
-                board.move(best_opponent_move.first, best_opponent_move.second, -1);
+                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 3, -playing_side);
+                handleSecondMouseClick(0, 0);
+                board.move(best_opponent_move.first, best_opponent_move.second, -playing_side);
                 turn *= -1;
             }
 

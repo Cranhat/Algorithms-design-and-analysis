@@ -20,8 +20,34 @@ unsigned long long FigureMoves::calculate_new_mask(int index) {
     return 1ULL << index;
 }
 
+void FigureMoves::moveCastle(int old_index, int new_index, int color){
+
+    switch (new_index)
+    {
+    case 1:
+        move(0, 2, color);
+        break;
+    case 5:
+        move(7, 4, color);
+        break;
+    case 57:
+        move(56, 58, color);
+        break;
+    case 61:
+        move(63, 60, color);
+        break;
+    default:
+        break;
+    }
+}
+
 void FigureMoves::move(int old_index, int new_index, int color){
     if (this -> board[old_index] != nullptr){
+        if (this -> board[old_index] -> identifier == 5){
+            if (abs(new_index - old_index) == 2){
+                moveCastle(old_index, new_index, color);
+            } 
+        }
         if (((int) new_index / 8 == 7 || new_index / 8 == 0) && this -> board[old_index] -> identifier == 1){
             delete board[old_index];
             this -> board[old_index] = nullptr;
@@ -42,7 +68,6 @@ bool FigureMoves::is_terminal(Figure** board, int color){
 }
 
 void FigureMoves::move(Figure** board, int old_index, int new_index, int color){
-
     if (board[old_index] != nullptr){
         if (((int) new_index / 8 == 7 || new_index / 8 == 0) && board[old_index] -> identifier == 1){
             board[old_index] = nullptr;
@@ -52,16 +77,9 @@ void FigureMoves::move(Figure** board, int old_index, int new_index, int color){
             board[old_index] = nullptr;
             board[new_index] -> mask = calculate_new_mask(new_index);
         }
-
-
-
     }
     else{
-        // std::cout << "---------------------------------\n";
         std::cerr << "Unable to move from nullptr" << std::endl;
-        // std::cout << "start_index = " << old_index << "new_index = " << new_index << std::endl;
-        // print_board(board);
-        // std::cout << "---------------------------------\n";
     }
 }
 
@@ -71,8 +89,6 @@ Figure* FigureMoves::findKing(Figure** board, int color){
             return board[i];
         }
     }
-    // print_board(board);
-    std::cerr << "no king found" << std::endl;
     return nullptr;
 }
 
@@ -94,7 +110,6 @@ void FigureMoves::deleteBoard(Figure** board){
 bool FigureMoves::simulate_and_check(Figure** board, std::vector<int> &available_moves_eval, int old_index, int new_index, int color){
     unsigned long long king_mask = 0;
     Figure** temp_board = cloneBoard(board);
-
     move(temp_board, old_index, new_index, color);
 
     king_mask = findKing(temp_board, color) -> mask;
@@ -113,32 +128,6 @@ bool FigureMoves::simulate_and_check(Figure** board, std::vector<int> &available
     deleteBoard(temp_board);
     return 0;
 }
-
-// bool FigureMoves::simulate_and_check(Figure** board, std::vector<int> &available_moves_eval, int old_index, int new_index, int color) {
-//     if (new_index < 0 || new_index > 63) return true; // Invalid move
-    
-//     Figure** temp_board = cloneBoard(board);
-//     move(temp_board, old_index, new_index);
-    
-//     Figure* king = findKing(temp_board, color);
-//     if (!king) {
-//         deleteBoard(temp_board);
-//         return true;
-//     }
-    
-//     bool in_check = is_checked(temp_board, king->mask, 
-//                              (color == 1) ? white_mask(temp_board) : black_mask(temp_board),
-//                              (color == 1) ? black_mask(temp_board) : white_mask(temp_board), 
-//                              color);
-    
-//     deleteBoard(temp_board);
-    
-//     if (!in_check) {
-//         available_moves_eval.push_back(new_index);
-//         return false;
-//     }
-//     return true;
-// }
 
 double FigureMoves::evaluate_position(Figure** board){
     double sum = 0;
@@ -232,10 +221,6 @@ void FigureMoves::available_down_moves(Figure** board, std::vector<int> &availab
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
-    // if ((int) ((__builtin_ctzll(figure_mask)) / 8) == 0){
-    //     delete board[old_index];
-    //     board[old_index] = new Queen(fourth_figure_mask, color);
-    // }
 }
 
 void FigureMoves::available_up_moves(Figure** board, std::vector<int> &available_moves_eval, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color){
@@ -274,10 +259,6 @@ void FigureMoves::available_up_moves(Figure** board, std::vector<int> &available
             simulate_and_check(board, available_moves_eval, old_index, new_index, color);
         }
     }
-    // if ((int) ((__builtin_ctzll(figure_mask)) / 8) == 7){
-    //     delete board[old_index];
-    //     board[old_index] = new Queen(fourth_figure_mask, color);
-    // }
 }
 
 void FigureMoves::available_vertical_moves(Figure** board, std::vector<int> &available_moves_eval, int scope, unsigned long long figure_mask, unsigned long long teammate_mask, unsigned long long enemy_mask, unsigned long long king_mask, int color){

@@ -99,7 +99,4 @@ struct King : public Figure{
     Figure* clone() const override {
         return new King(*this);
     }
-
-
-
 };

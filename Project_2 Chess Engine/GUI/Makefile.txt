@@ -1,1 +1,4 @@
-g++ -o a gui.cpp -lmingw32 -lSDL2main -lSDL2 -mwindows
+g++ -o a gui.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -mconsole
+g++ -o a gui.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -mwindows
+
+g++ -o a gui.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDS_ttf -mwindows

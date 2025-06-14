@@ -7,7 +7,6 @@ void print_moves(std::vector<std::vector<int>> moves){
             std::cout << "i = " << i << " j = " << j << " available moves: " << moves[i][j] << std::endl;
         }
     }
-    
 }
 
 double Minimax::minimax(Figure** board, int depth, int maximizing_player, double alpha, double beta){
@@ -18,7 +17,6 @@ double Minimax::minimax(Figure** board, int depth, int maximizing_player, double
     if (maximizing_player == 1){            
         double maxEval = -std::numeric_limits<double>::infinity();
         std::vector<std::vector<int>> aam = all_available_moves(board, 1);
-
         for (int i = 0; i < 64; i++){
             if (board[i] != nullptr){
                 for(int j = 0; j < (int) aam[i].size(); j++){
@@ -61,7 +59,6 @@ double Minimax::minimax(Figure** board, int depth, int maximizing_player, double
 
 std::pair<int, int> Minimax::get_best_move(Figure** board, int depth, int maximizing_player) {
     double bestEval = maximizing_player == 1 ? -std::numeric_limits<double>::infinity() :  std::numeric_limits<double>::infinity();
-
     std::pair<int, int> bestMove = {-1, -1};
     std::vector<std::vector<int>> aam = all_available_moves(board, maximizing_player);
 
