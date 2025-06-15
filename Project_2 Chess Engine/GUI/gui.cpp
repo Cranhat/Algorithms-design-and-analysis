@@ -28,7 +28,7 @@ int selectedX = -1;
 int selectedY = -1;
 int old_idx = 0;
 
-int playing_side = 1;
+int playing_side = -1;
 int turn = 1;
 int result = 0;
 
@@ -128,11 +128,14 @@ void handleMouseClick(int mouseX, int mouseY) {
         turn *= -1;
         return;
     }else if(board.board[new_idx] != nullptr){
-        old_idx = (7 - selectedY) * 8 + (7 - selectedX);
-        if (playing_side == -1){
-            old_idx = 63 - old_idx;
+        if (board.board[new_idx] -> color == playing_side){
+            old_idx = (7 - selectedY) * 8 + (7 - selectedX);
+            if (playing_side == -1){
+                old_idx = 63 - old_idx;
+            }
+            selected_tiles = board.show_available_moves(board.board, board.board[old_idx], playing_side);
         }
-        selected_tiles = board.show_available_moves(board.board, board.board[old_idx], playing_side);
+
     }
 
 }
