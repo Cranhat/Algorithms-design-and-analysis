@@ -30,6 +30,7 @@ int old_idx = 0;
 
 int playing_side = 1;
 int turn = 1;
+int result = 0;
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
@@ -153,12 +154,14 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event e;
 
-
+    char message = 'a';
+    char title = 'a';
     while (running) {
-        if (playing_side == 1){
+        // if (playing_side == 1){
 
-        }
+        // }
         while (SDL_PollEvent(&e)) {
+            
             if (turn == 1){
                 if (e.type == SDL_QUIT)
                     running = false;
@@ -169,20 +172,26 @@ int main(int argc, char* argv[]) {
                         handleSecondMouseClick(e.button.x, e.button.y);
                     }
                 }
+
             }else if(turn == -1){
-                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 3, -playing_side);
+                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 4, -playing_side);
                 handleSecondMouseClick(0, 0);
                 board.move(best_opponent_move.first, best_opponent_move.second, -playing_side);
                 turn *= -1;
             }
-
         }
-
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
         drawBoard();
         SDL_RenderPresent(renderer);
+        result = board.isCheckmate(board.board, turn);
+        if (result == 1){
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Checkmate!", "Black won", NULL);
+        }else if (result == -1){
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Checkmate!", "White won", NULL);
+        }
+
     }
 
     for (auto& t : textures) SDL_DestroyTexture(t.second);

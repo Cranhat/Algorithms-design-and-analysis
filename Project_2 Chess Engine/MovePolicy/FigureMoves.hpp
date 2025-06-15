@@ -38,7 +38,7 @@ class FigureMoves : public KingCheckPolicy, public Board {
 
     Figure** cloneBoard(Figure** board);
 
-    bool is_terminal(Figure** board, int color);
+    bool isTerminal(Figure** board, int color);
 
     void moveCastle(int old_index, int new_index, int color);
 

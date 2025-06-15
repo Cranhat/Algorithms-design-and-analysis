@@ -64,7 +64,7 @@ void FigureMoves::move(int old_index, int new_index, int color){
     this -> board[new_index] -> wasMovedFlag = 1;
 }
 
-bool FigureMoves::is_terminal(Figure** board, int color){
+bool FigureMoves::isTerminal(Figure** board, int color){
     if (findKing(board, 1) && findKing(board, -1)){
         return false;
     }

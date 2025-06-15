@@ -11,7 +11,7 @@ void print_moves(std::vector<std::vector<int>> moves){
 
 double Minimax::minimax(Figure** board, int depth, int maximizing_player, double alpha, double beta){
     double eval;
-    if (depth == 0 || is_terminal(board, maximizing_player)){
+    if (depth == 0 || isTerminal(board, maximizing_player)){
         return evaluate_position(board);
     }
     if (maximizing_player == 1){            
