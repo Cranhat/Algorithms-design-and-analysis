@@ -28,7 +28,7 @@ int selectedX = -1;
 int selectedY = -1;
 int old_idx = 0;
 
-int playing_side = -1;
+int playing_side = 1;
 int turn = 1;
 
 SDL_Window* window = nullptr;

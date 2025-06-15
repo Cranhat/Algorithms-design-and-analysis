@@ -42,7 +42,10 @@ void FigureMoves::moveCastle(int old_index, int new_index, int color){
 }
 
 void FigureMoves::move(int old_index, int new_index, int color){
+    
+    
     if (this -> board[old_index] != nullptr){
+        
         if (this -> board[old_index] -> identifier == 5){
             if (abs(new_index - old_index) == 2){
                 moveCastle(old_index, new_index, color);
@@ -58,6 +61,7 @@ void FigureMoves::move(int old_index, int new_index, int color){
             this -> board[new_index] -> mask = calculate_new_mask(new_index);
         }
     }
+    this -> board[new_index] -> wasMovedFlag = 1;
 }
 
 bool FigureMoves::is_terminal(Figure** board, int color){
