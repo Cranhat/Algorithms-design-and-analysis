@@ -13,18 +13,11 @@ std::vector<std::vector<int>> Engine::all_available_moves(Figure** board, int co
     return available_moves;
 }
 
-
-// king_mask = findKing(temp_board, color) -> mask;
-// if (color == 1){
-//     if (is_checked(temp_board, king_mask, white_mask(temp_board), black_mask(temp_board), color)){
-//         deleteBoard(temp_board);
-//         return 1;
-//     }
-    
 int Engine::isCheckmate(Figure** board, int color){
     unsigned long long teammate_mask = color == 1 ? white_mask(board) : black_mask(board);
     unsigned long long enemy_mask = color == 1 ? black_mask(board) : white_mask(board);
     int checkmate = color == 1 ? 1 : -1;
+    int stalemate = 2;
     bool all_empty = true;
 
     for (const auto& moves : all_available_moves(board, color)) {
@@ -34,8 +27,12 @@ int Engine::isCheckmate(Figure** board, int color){
         }
     }
 
-    if(is_checked(board, findKing(board, color) -> mask, teammate_mask, enemy_mask, color) && all_empty){
-        return checkmate;
+    if(all_empty){
+        if(is_checked(board, findKing(board, color) -> mask, teammate_mask, enemy_mask, color)){
+            return checkmate;
+        }else{
+            return stalemate;
+        }
     }
     return 0;
 }

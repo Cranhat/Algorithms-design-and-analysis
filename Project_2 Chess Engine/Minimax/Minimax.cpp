@@ -79,3 +79,29 @@ std::pair<int, int> Minimax::get_best_move(Figure** board, int depth, int maximi
     }
     return bestMove;
 }
+// double Minmax::double_minmax_search(Figure** board, int depth, int maximizing_player, double alpha, double beta){
+//     return 0;
+// }
+
+
+// std::vector<std::pair<int, int>> Minimax::get_best_moves(Figure** board, int depth, int maximizing_player) {
+//     double bestEval = maximizing_player == 1 ? -std::numeric_limits<double>::infinity() :  std::numeric_limits<double>::infinity();
+//     std::pair<int, int> bestMove = {-1, -1};
+//     std::vector<std::vector<int>> aam = all_available_moves(board, maximizing_player);
+
+//     for (int i = 0; i < 64; i++) {
+//         for (int j = 0; j < (int)aam[i].size(); j++) {
+//             if (board[i] != nullptr) {
+//                 Figure** temp_board = cloneBoard(board);
+//                 move(temp_board, i, aam[i][j], maximizing_player);
+//                 double eval = minimax(temp_board, depth - 1, -maximizing_player, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
+
+//                 if ((maximizing_player == 1 && eval > bestEval) || (maximizing_player == -1 && eval < bestEval)) {
+//                     bestEval = eval;
+//                     bestMove = {i, aam[i][j]};
+//                 }
+//             }
+//         }
+//     }
+//     return bestMove;
+// }

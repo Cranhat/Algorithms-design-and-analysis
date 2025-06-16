@@ -28,7 +28,7 @@ int selectedX = -1;
 int selectedY = -1;
 int old_idx = 0;
 
-int playing_side = -1;
+int playing_side = 1;
 int turn = 1;
 int result = 0;
 
@@ -177,7 +177,7 @@ int main(int argc, char* argv[]) {
                 }
 
             }else if(turn == -1){
-                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 4, -playing_side);
+                std::pair<int, int> best_opponent_move = board.get_best_move(board.board, 1, -playing_side);
                 handleSecondMouseClick(0, 0);
                 board.move(best_opponent_move.first, best_opponent_move.second, -playing_side);
                 turn *= -1;
@@ -191,8 +191,13 @@ int main(int argc, char* argv[]) {
         result = board.isCheckmate(board.board, turn);
         if (result == 1){
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Checkmate!", "Black won", NULL);
+            break;
         }else if (result == -1){
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Checkmate!", "White won", NULL);
+            break;
+        }else if(result == 2){
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Yikes!", "Stalemate", NULL);
+            break;
         }
 
     }

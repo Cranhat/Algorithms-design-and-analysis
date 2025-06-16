@@ -41,11 +41,29 @@ void FigureMoves::moveCastle(int old_index, int new_index, int color){
     }
 }
 
+void FigureMoves::moveCastle(Figure** board, int old_index, int new_index, int color){
+
+    switch (new_index)
+    {
+    case 1:
+        move(board, 0, 2, color);
+        break;
+    case 5:
+        move(board, 7, 4, color);
+        break;
+    case 57:
+        move(board, 56, 58, color);
+        break;
+    case 61:
+        move(board, 63, 60, color);
+        break;
+    default:
+        break;
+    }
+}
+
 void FigureMoves::move(int old_index, int new_index, int color){
-    
-    
     if (this -> board[old_index] != nullptr){
-        
         if (this -> board[old_index] -> identifier == 5){
             if (abs(new_index - old_index) == 2){
                 moveCastle(old_index, new_index, color);
@@ -62,6 +80,7 @@ void FigureMoves::move(int old_index, int new_index, int color){
         }
     }
     this -> board[new_index] -> wasMovedFlag = 1;
+    turn_counter++;
 }
 
 bool FigureMoves::isTerminal(Figure** board, int color){
@@ -73,7 +92,13 @@ bool FigureMoves::isTerminal(Figure** board, int color){
 
 void FigureMoves::move(Figure** board, int old_index, int new_index, int color){
     if (board[old_index] != nullptr){
+        if (board[old_index] -> identifier == 5){
+            if (abs(new_index - old_index) == 2){
+                moveCastle(board, old_index, new_index, color);
+            } 
+        }
         if (((int) new_index / 8 == 7 || new_index / 8 == 0) && board[old_index] -> identifier == 1){
+            delete board[old_index];
             board[old_index] = nullptr;
             board[new_index] = new Queen(calculate_new_mask(new_index), color);
         }else{
@@ -81,9 +106,6 @@ void FigureMoves::move(Figure** board, int old_index, int new_index, int color){
             board[old_index] = nullptr;
             board[new_index] -> mask = calculate_new_mask(new_index);
         }
-    }
-    else{
-        std::cerr << "Unable to move from nullptr" << std::endl;
     }
 }
 
@@ -144,16 +166,25 @@ double FigureMoves::evaluate_position(Figure** board){
 }
 
 double FigureMoves::get_additional_move_value(int index, int piece_type, int piece_color){
-    float additional_value = 0;
+    double additional_value = 0;
     additional_value += center_pieces_mask[index];
     if (piece_color == 1){
         if (piece_type == 5){
-            additional_value += white_king_mask[index];
+            if (turn_counter < 16){
+                additional_value += white_king_castle_mask[index];
+            }else{
+                additional_value += white_king_mask[index];
+            }
+            
         }
     }
     if (piece_color == -1){
         if (piece_type == 5){
-            additional_value += black_king_mask[index];
+            if (turn_counter < 10){
+               additional_value += black_king_castle_mask[index]; 
+            }else{
+                additional_value += black_king_mask[index];
+            }
         }
     }
     return additional_value;

@@ -42,6 +42,7 @@ class Board{
     Figure** board =  new Figure*[64];
     Figure* white_king_pointer;
     Figure* black_king_pointer;
+    int turn_counter = 0;
 
     Board(){
                 

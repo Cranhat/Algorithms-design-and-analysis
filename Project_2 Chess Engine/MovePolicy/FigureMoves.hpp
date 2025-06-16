@@ -42,5 +42,7 @@ class FigureMoves : public KingCheckPolicy, public Board {
 
     void moveCastle(int old_index, int new_index, int color);
 
+    void  moveCastle(Figure** board, int old_index, int new_index, int color);
+
     void deleteBoard(Figure** board);
 };
